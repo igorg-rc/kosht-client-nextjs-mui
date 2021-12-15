@@ -21,3 +21,5 @@ yarn-error.log*
 
 # other
 sandbox.config.json
+# Local Netlify folder
+.netlify

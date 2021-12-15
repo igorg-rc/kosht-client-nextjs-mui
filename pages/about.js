@@ -12,10 +12,10 @@ export default function About() {
     <Container maxWidth="sm">
       <Box sx={{ my: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          Next.js example
+          My first changes in this template
         </Typography>
         <Button variant="contained" component={Link} noLinkStyle href="/">
-          Go to the main page
+          Here will be site of kosht
         </Button>
         <ProTip />
         <Copyright />

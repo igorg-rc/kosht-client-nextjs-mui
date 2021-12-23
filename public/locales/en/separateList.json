@@ -1,0 +1,16 @@
+{
+  "accordionExpand": "expand",
+  "accordionCollapse": "collapse",
+  "accordionShowMore": "Show more",
+  "titleReadMore": "Read more",
+  "titleNewsWeek": "Main news",
+  "titleNews": "News",
+  "titleEditorChoice": "Editor choice",
+  "titleCurrenciesToday": "Exchange rate for today",
+  "currencyEuro": "Euro",
+  "currencyUSD": "USD",
+  "currencyBank": "Bank",
+  "currencyBuy": "Buy",
+  "currencySelling": "Selling",
+  "allCurrenciesLink": "All banks and currencies"
+}

@@ -10,7 +10,7 @@ import Link from '../src/Link';
 import Copyright from '../src/Copyright';
 import { makeStyles, useTheme } from '@mui/styles';
 import { Container } from '@mui/material';
-import LeftMenu from '../components/UI/LeftMenu';
+import LeftMenu from '../components/UI/_LeftMenu';
 import axios from 'axios';
 import Content from '../components/Example/Content';
 
@@ -18,7 +18,15 @@ const useStyles = makeStyles(theme => ({
   paragraph: { color: 'red', fontSize: 30 }
 }))
 
-export default function Index({users, posts, comments, albums, contacts, LeftMenuProps}) {
+const Index = props => {
+  const {
+    users, 
+    posts, 
+    comments, 
+    albums, 
+    contacts, 
+  } = props
+
   const theme = useTheme()
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -37,6 +45,9 @@ export default function Index({users, posts, comments, albums, contacts, LeftMen
           <Item>
             LeftMenu
             {/* <LeftMenu {...LeftMenuProps} /> */}
+            <LeftMenu 
+              contacts={contacts} 
+              />
           </Item>
         </Grid>
         <Grid item xs={6}>
@@ -56,8 +67,9 @@ export default function Index({users, posts, comments, albums, contacts, LeftMen
       </Grid>
     </Box>
   );
-
 }
+
+export default Index
 
 export async function getStaticProps(context) {
   const fetchedUsers = await axios.get('https://jsonplaceholder.typicode.com/users', { params: { _limit: 5 } })
@@ -65,13 +77,13 @@ export async function getStaticProps(context) {
   const fetchedComments = await axios.get('https://jsonplaceholder.typicode.com/comments', { params: { _limit: 5 } })
   const fetchedAlbums = await axios.get('https://jsonplaceholder.typicode.com/albums', { params: { _limit: 5 } })
   const fetchedContacts = await axios.get('https://kosht-api.herokuapp.com/api/contacts')
+  const contacts = fetchedContacts.data
   const comments = fetchedComments.data
   const users = fetchedUsers.data
   const posts = fetchedPosts.data
-  const contacts = fetchedContacts.data
   const albums = fetchedAlbums.data
 
   return {
-    props: {users, posts, contacts, comments, albums} 
+    props: {users, posts, comments, albums, contacts} 
   }
 }

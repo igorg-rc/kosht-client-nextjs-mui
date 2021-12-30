@@ -21,7 +21,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import searchIcon from '../../files/images/UI/search.png'
 import theme from '../../src/theme';
 
-const useStyles = makeStyles(theme => ({
+
+const styles = {
   root: {
     flexGrow: 1,
     [theme.breakpoints.down('xs')]: {
@@ -128,9 +129,9 @@ const useStyles = makeStyles(theme => ({
     padding: '6px 20px',
     fontFamily: 'Gilroy, sans-serif',
     fontWeight: 'bold',
-    background: '#5669FF', 
+    background: theme.palette.secondary.main, 
     '&:hover': {
-      background: '#5669FF'
+      background: theme.palette.secondary.main
     }
   },
   mobileBtn: {
@@ -184,10 +185,10 @@ const useStyles = makeStyles(theme => ({
   searchIcon: {
     width: 19
   }
-}))
+}
 
 export const Header = () => {
-  const styles = useStyles()
+  // const styles = useStyles()
   const [openMenu, setOpenMenu] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
   const [query, setQuery] = useState("")
@@ -208,7 +209,7 @@ export const Header = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" elevation={0} style={{ background: "#f9f9f9" }}>
         <Toolbar>
-          <Grid container>
+          <Grid container spacing={2}>
             <Grid item xs={3}>
               <Button
                 onClick={() => router.push("/")}
@@ -218,7 +219,6 @@ export const Header = () => {
                 color="primary"
                 size="small"
                 edge="start"
-                aria-label="menu"
                 sx={{ mr: 2 }}
               >
                 Kosht
@@ -226,15 +226,15 @@ export const Header = () => {
             </Grid>
             <Grid item xs={9} style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <Typography 
-                    component="p"
-                    className={styles.brandPhrase} 
-                    // style={{     
-                    //   fontFamily: 'Gilroy, sans-serif',
-                    //   fontWeight: 800,
-                    //   fontSize: 18,
-                    //   lineHeight: '180%', 
-                    //   color: theme.palette.primary.main
-                    // }}
+                    component="p" 
+                    className={styles.brandPhrase}
+                    style={{     
+                      fontFamily: 'Gilroy, sans-serif',
+                      fontWeight: 800,
+                      fontSize: 18,
+                      lineHeight: '180%', 
+                      color: theme.palette.primary.main
+                    }}
                     >We talk about personal finances
                   </Typography>
                   <div className={styles.search}>
@@ -275,7 +275,20 @@ export const Header = () => {
                             <Button 
                               id="search-menu-button" 
                               variant="contained" 
-                              color="primary" 
+                              color="secondary" 
+                              style={{
+                                minWidth: 35,
+                                borderRadius: 8,
+                                textTransform: 'none',
+                                fontSize: 12,
+                                padding: '6px 20px',
+                                fontFamily: 'Gilroy, sans-serif',
+                                fontWeight: 'bold',
+                                marginRight: -12,
+                                '&:hover': {
+                                  color: 'yellow'
+                                }
+                              }}
                               className={styles.searchBtn}
                               onClick={handleSearch}
                               disableElevation

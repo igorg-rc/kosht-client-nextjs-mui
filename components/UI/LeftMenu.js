@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
-import { makeStyles, useTheme } from "@material-ui/styles"
-import { NavLink } from "react-router-dom"
-import { List, ListItem, Typography, TextField, useMediaQuery, InputAdornment } from "@material-ui/core"
+import { makeStyles, useTheme } from "@mui/styles"
+// import { NavLink } from "react-router-dom"
+import Link from "next/link"
+import axios from "axios"
+import { List, ListItem, Typography, TextField, useMediaQuery, InputAdornment } from "@mui/material"
 // import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import { create_subscriber, get_categories, get_contacts, get_tags, HOST_URL } from "../../api/api"
 import { SectionTitle } from "./Title"
-import { Trans, useTranslation } from "react-i18next"
+// import { Trans, useTranslation } from "react-i18next"
 import { SpinnerContent } from "./SpinnerContent"
 // import { lang } from "moment"
 
@@ -149,41 +151,41 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export const LeftMenu = props => {
-  const { turnOnLoading, turnOffLoading } = props
-  const { i18n, t } = useTranslation()
+const LeftMenu = ({categories, tags, contacts, users, posts}) => {
   const theme = useTheme()
+  // const { i18n, t } = useTranslation()
   // const isSM = useMediaQuery(theme.breakpoints.down('xs'))
   // const initialLanguage = localStorage.getItem('locale') || "ua"
   // const [language, setLanguage] = useState(initialLanguage)
   const DEV_API_LINK = HOST_URL
   const styles = useStyles()
-  const [categories, setCategories] = useState([])
-  const [contacts, setContacts] = useState([])
-  const [tags, setTags] = useState([])
+  // const [categories, setCategories] = useState([])
+  // const [contacts, setContacts] = useState([])
+  // const [tags, setTags] = useState([])
   const [loading, setLoading] = useState(false)
   const [userInput, setUserInput] = useState("")
   const [categoryHover, setCategoryHover] = useState(false)
   const [categoryIndex, setCategoryIndex] = useState(null)
-  const localeUA = localStorage.getItem('locale') === 'ua'
-  const localeEN = localStorage.getItem('locale') === 'en'
+  // const localeUA = localStorage.getItem('locale') === 'ua'
+  // const localeEN = localStorage.getItem('locale') === 'en'
 
-  useEffect(() => {
-    const setContent = async () => {
-      setLoading(true)
-      const contactData = (await get_contacts())
-      setContacts(contactData.data)
-      setCategories(await get_categories())
-      setTags(await get_tags())
-      setLoading(false)
-    }
-    setContent()
-  }, [t])
+  // useEffect(() => {
+  //   const setContent = async () => {
+  //     setLoading(true)
+  //     const contactData = (await get_contacts())
+  //     setContacts(contactData.data)
+  //     setCategories(await get_categories())
+  //     setTags(await get_tags())
+  //     setLoading(false)
+  //   }
+  //   setContent()
+  // }, [])
 
   const subscribeHandler = async e => {
     try {
       if (e.target.value !== "") {
         await create_subscriber({ email: userInput })
+        // alert(t("leftMenu.subscribeAlert"))
         alert(t("leftMenu.subscribeAlert"))
         window.location.reload()
       } else {
@@ -213,11 +215,13 @@ export const LeftMenu = props => {
   //   setLoading(false)
   // }
 
+  console.log(posts)
+
   return loading ? null : <>
     <section className={styles.main}>
       <div className={styles.list}>
         <List className={[styles.tagList, "category-list"].concat(" ")}>
-          { categories.map((item, index) => (
+          {/* { categories.map((item, index) => (
             <ListItem 
               className={[styles.categoryListItem, "category-list-item"].concat(" ")} 
               key={item._id}
@@ -249,13 +253,13 @@ export const LeftMenu = props => {
                 </span>
               </NavLink>
             </ListItem>
-          )) }
+          )) } */}
         </List>
       </div>
 
       <div className={styles.list}>
         <List className={styles.tagList}>
-          { tags.map(item => (
+          {/* { tags.map(item => (
             <ListItem className={styles.tagListItem} key={item._id}>
               <NavLink 
                 activeClassName={styles.activeOtherNavLink} 
@@ -268,12 +272,13 @@ export const LeftMenu = props => {
                 </Typography>
               </NavLink>
             </ListItem>
-          )) }
+          )) } */}
         </List>
       </div>
 
       <div className={styles.blockTitle}>
-        <SectionTitle title={<Trans i18nKey="leftMenu.followUs">Follow us</Trans>}/>
+        {/* <SectionTitle title={<Trans i18nKey="leftMenu.followUs">Follow us</Trans>}/> */}
+        <SectionTitle title="Follow us" />
       </div>
       <div className={styles.list}>
         <List className={styles.tagList}>
@@ -289,20 +294,30 @@ export const LeftMenu = props => {
                   /> :
                   <span className={styles.liCircle}>&#9679;</span> }
                   <span className={styles.liLattice}>
-                    {localeUA ? item.title_ua : (localeEN ? item.title_en : item.title_ua )}
+                    { title_en }
                   </span>
                 </Typography>
               </a>
             </ListItem>
           )) }
+        {/* {contacts.data.map(item => (
+          <div key={item._id} style={{ padding: 20, margin: '10px 0', border: '1px solid red', borderRadius: 5 }}>
+            <h3>{item.title_en}</h3>
+            <a href={item.link} target="_blank">{item.link}</a>
+          </div>
+        ))} */}
+        <h1 style={{ color: "red" }}>
+        </h1>
         </List>
       </div>
       <div className={styles.blockTitle}>
-        <SectionTitle title={<Trans i18nKey="leftMenu.subscribeHeader">Enter email</Trans>}/>
+        {/* <SectionTitle title={<Trans i18nKey="leftMenu.subscribeHeader">Enter email</Trans>} /> */}
+        <SectionTitle title="Enter email" />
         <div className={styles.subscribeForm}>
           <TextField  
             variant="outlined" 
-            placeholder={t("leftMenu.subscribePlaceholder")} 
+            placeholder="" 
+            // placeholder={t("leftMenu.subscribePlaceholder")} 
             fullWidth
             inputProps={{ className: styles.inputField }}
             onChange={e => setUserInput(e.target.value)}
@@ -312,7 +327,8 @@ export const LeftMenu = props => {
           />
           <div style={{ textAlign: 'left', paddingTop: 5 }} onClick={subscribeHandler}>
             <span className={styles.submitBtnHolder}>
-              <Trans i18nKey="leftMenu.subscribeLink">Subscribe</Trans>              
+              {/* <Trans i18nKey="leftMenu.subscribeLink">Subscribe</Trans>               */}
+              Subscribe       
             </span>
           </div>
         </div>
@@ -355,4 +371,22 @@ export const LeftMenu = props => {
       
     {/* </section> */}
   </>
+}
+
+
+export default LeftMenu;
+
+export async function getStaticProps(context) {
+  const fetchedUsers = await axios.get('https://jsonplaceholder.typicode.com/users')
+  const fetchedPosts = await axios.get('https://jsonplaceholder.typicode.com/posts')  
+  const fetchedContacts = await axios.get('https://kosht-api.herokuapp.com/api/contacts')
+  const contacts = fetchedContacts.data
+  const users = fetchedUsers.data
+  const posts = fetchedPosts.data
+
+  return {
+    props: {users, posts, contacts}, // will be passed to the page component as props
+  }
+
+
 }

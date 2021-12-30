@@ -15,6 +15,8 @@ const About = ({users, posts, contacts}) => {
   const router = useRouter()
   const { pathname, locale } = router
 
+  console.log(posts)
+
   return (
     <Container maxWidth="sm">
       <Box sx={{ my: 4 }}>
@@ -34,7 +36,7 @@ const About = ({users, posts, contacts}) => {
         ))}
 
         {users.map(item => (
-          <div key={item.id} style={{ padding: 20, margin: '10px 0', border: '1px solid blue', borderRadius: 5 }}>
+          <div key={item.id} style={{ padding: 20, margin: '10px 0', border: '1px solid lightGrey', borderRadius: 5 }}>
             <h3>{item.name}</h3>
             <Typography component="p">{item.email}</Typography>
           </div>
@@ -47,7 +49,6 @@ const About = ({users, posts, contacts}) => {
           </div>
         ))}
 
-
         <ProTip />
         <Copyright />
       </Box>
@@ -55,9 +56,8 @@ const About = ({users, posts, contacts}) => {
   );
 }
 
-
-
 export default About;
+
 
 export async function getStaticProps(context) {
   const fetchedUsers = await axios.get('https://jsonplaceholder.typicode.com/users')

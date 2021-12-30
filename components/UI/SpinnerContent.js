@@ -1,7 +1,7 @@
 import { ScaleLoader, BeatLoader } from "react-spinners"
-import { makeStyles } from "@material-ui/styles"
-import { Typography } from "@material-ui/core"
-import { Trans } from 'react-i18next'
+import { makeStyles } from "@mui/styles"
+import { Typography } from "@mui/material"
+// import { Trans } from 'react-i18next'
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -25,7 +25,8 @@ export const SpinnerLoadPage = ({ loadingStatus }) => {
   const styles = useStyles()
   return <div className={styles.main}>
     <Typography component="h1" className={styles.pageTitle}>
-      <Trans i18nKey="loading.loadingStatus">Loading...</Trans>
+      {/* <Trans i18nKey="loading.loadingStatus">Loading...</Trans> */}
+      Loading...
     </Typography>
     <BeatLoader 
       loading={loadingStatus} 

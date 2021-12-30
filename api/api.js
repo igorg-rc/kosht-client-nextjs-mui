@@ -1,9 +1,9 @@
 import axios from 'axios'
 //==================== API_LINK =========================//
 //--------------- production environment ----------------//
-// export const HOST_URL = 'https://kosht-api.herokuapp.com' 
+export const HOST_URL = 'https://kosht-api.herokuapp.com' 
 //------------ development environment ------------------// 
-export const HOST_URL = 'http://localhost:5000'
+// export const HOST_URL = 'http://localhost:5000'
 //================== END API_LINK =======================//
 
 const API_URL = `${HOST_URL}/api`

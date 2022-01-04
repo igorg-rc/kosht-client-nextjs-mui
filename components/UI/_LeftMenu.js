@@ -1,9 +1,9 @@
-import ContactsIndex from "../Contacts.js/ContactsIndex";
+import ContactsIndex from "../Contacts.js/ContactsIndex"
+import CategoriesList from "../Categories/CategoriesList"
 
-export default function LeftMenu({ contacts }) {
-  return (
-    <div>
-      <ContactsIndex contacts={contacts} />
-    </div>
-  )
+export default function LeftMenu({ contacts, categories }) {
+  return <>
+    <CategoriesList categories={categories} />
+    <ContactsIndex contacts={contacts} />
+  </>
 }

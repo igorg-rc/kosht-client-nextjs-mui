@@ -1,9 +1,20 @@
-import { Container, Grid } from '@mui/material'
+import { Container, Grid, Paper } from '@mui/material'
 import axios from 'axios'
 import React from 'react'
 import { Header } from './Header'
 import useSWR from 'swr'
 import Link from 'next/link'
+import styled from '@emotion/styled'
+
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.primary.main,
+  border: `1px solid ${theme.palette.primary.main}`,
+  marginBottom: 10
+  // height: '100vh'
+}));
 
 export default function Layout({ children, posts }) {
 
@@ -23,16 +34,19 @@ export default function Layout({ children, posts }) {
       <Header />
       <Grid container spacing={2}>
         <Grid item xs={3}>
-          {data.map(i => (
-            <div>
-              <Link href={`/categories/${i.slug}`}>{i.title_en}</Link>
-            </div>
-          ))}
+          <Item>
+            {data.map(i => (
+              <div>
+                <Link href={`/categories/${i.slug}`}>{i.title_en}</Link>
+              </div>
+            ))}
+          </Item>
         </Grid>
         <Grid item xs={6}>
           {children}
         </Grid>
         <Grid item xs={3}>
+          <Item>Right menu</Item>
         </Grid>
       </Grid>
     </Container>

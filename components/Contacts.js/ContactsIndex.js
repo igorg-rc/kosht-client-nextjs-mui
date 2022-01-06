@@ -6,7 +6,6 @@ export default function ContactsIndex({ contacts }) {
           <h3>
             <a style={{ color: "#fff" }} href={item.link} target="_blank">{item.title_en}</a>
           </h3>
-          
         </div>
       ))}
     </div>

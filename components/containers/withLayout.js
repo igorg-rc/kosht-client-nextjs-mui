@@ -23,11 +23,14 @@ const withLayout = (Component) => {
           <CategoriesList {...props} />
         </Grid>
         <Grid item xs={6}>
-          <Component {...props} />
+          <div style={{ width: '100%', height: '40vh', border: '1px solid black', borderRadius: 6 }}>
+            <Component {...props} />
+          </div>
         </Grid>
-        <Grid item xs={3}></Grid>
+        <Grid item xs={3}>
+          <div style={{ width: '100%', height: '40vh', border: '1px solid black', borderRadius: 6 }}></div>
+        </Grid>
       </Grid>
-      
     </Container>
   );
 

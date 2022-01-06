@@ -30,7 +30,8 @@
     "react-tabs": "^3.2.3",
     "sanitize-html": "^2.4.0",
     "simple-react-lightbox": "^3.6.9-0",
-    "speakingurl": "^14.0.1"
+    "speakingurl": "^14.0.1",
+    "swr": "^1.1.2"
   },
   "scripts": {
     "dev": "next",

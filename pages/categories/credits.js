@@ -2,6 +2,7 @@ import axios from "axios"
 import styled from "@emotion/styled";
 import { Paper } from "@mui/material";
 import Link from "next/link";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -33,11 +34,11 @@ const Credits = props => {
 
 export default Credits
 
-export async function getStaticProps(context) {
+export async function getStaticProps({locale}) {
   const res = await axios.get(`https://kosht-api.herokuapp.com/api/posts/categories/credits`)
   const posts = res.data
 
   return {
-    props: { posts }
+    props: { posts, ...await serverSideTranslations(locale, ["common"]) }
   }
 }

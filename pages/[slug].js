@@ -8,13 +8,14 @@ export default function Post({ post }) {
 }
 
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }) {
   const res = await axios.get('https://kosht-api.herokuapp.com/api/posts')
   const posts = res.data
 
-  const paths = posts.map(post => ({
-    params: { slug: post.slug }
-  }))
+  const paths = posts.map(post => (
+    { params: { slug: post.slug }, locale: "uk" },
+    { params: { slug: post.slug }, locale: "en" }
+  ))
 
   return {
     paths,

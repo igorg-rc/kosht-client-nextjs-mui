@@ -7,6 +7,8 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 const loadData = async locale => {
   const response = await fetch("/api/hello", { headers: { "Accept-Language": locale } })
@@ -33,6 +35,7 @@ const Index = props => {
   const {locale, locales} = useRouter()
   const theme = useTheme()
   const {data} = useSWR([locale, "hello"], loadData)
+  const { t } = useTranslation('common')
   // const {categoriesData} = useSWR([locale, "categories"], loadCategories)
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -55,7 +58,7 @@ const Index = props => {
         </Link>
       </Item>
     ))}
-    {/* <h1>Name</h1> */}
+    
     {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </>
   );
@@ -64,7 +67,7 @@ const Index = props => {
 
 export default Index
 
-export async function getStaticProps(context) {
+export async function getStaticProps({ locale }) {
   const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts', { params: { _limit: 5 } })  
   const fetchedUsers = await axios.get('https://jsonplaceholder.typicode.com/users', { params: { _limit: 5 } })
   const fetchedComments = await axios.get('https://jsonplaceholder.typicode.com/comments', { params: { _limit: 5 } })
@@ -79,6 +82,6 @@ export async function getStaticProps(context) {
   const albums = fetchedAlbums.data
 
   return {
-    props: {users, posts, comments, albums, contacts, categories } 
+    props: {users, posts, comments, albums, contacts, categories, ...await serverSideTranslations(locale, ['common']) } 
   }
 }

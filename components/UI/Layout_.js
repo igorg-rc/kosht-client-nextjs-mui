@@ -19,7 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Layout({ children, posts }) {
-  const { locale, locales, pathname } = useRouter()
+  const { locale, locales, pathname, replace } = useRouter()
   const { t } = useTranslation()
 
   const {data, error} = useSWR("user", async () => {
@@ -29,7 +29,7 @@ export default function Layout({ children, posts }) {
     return data
   })
 
-  let greeting = locale === "en" ? "Hello World!" : locale === "es" ? "Hola!" : "Привіт!"
+  let greeting = locale === "en" ? "Hello World!" : "Привіт, Світ!"
 
   if (error) return <div>Error: failed to load</div>
   if (!data) return <div>Loading...</div>
@@ -49,19 +49,20 @@ export default function Layout({ children, posts }) {
           <Item>
             {locales.map(item => (
               <div key={item}>
-                <Link href={`/${pathname}`} locale={item}>{item}</Link>
+                <Link href={`/${pathname}`} onClick={() => replace(`/${pathname}`)} locale={item}>{item}</Link>
               </div>
             ))}
           </Item>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} style={{ textAlign: 'center' }}>
           {children}
-          { greeting }
+          <h1>{t('welcome_msg')}</h1>
+          <h2>{ greeting }</h2>
         </Grid>
         <Grid item xs={3}>
           <Item>
-            Right menu
-            {/* <pre>{JSON.stringify(sampleData, null, 2)}</pre> */}
+            <p>{t('common:right_menu')}</p>
+            <h3>{t('common:welcome_msg')}</h3>
           </Item>
         </Grid>
       </Grid>

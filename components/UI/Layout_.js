@@ -32,7 +32,7 @@ export default function Layout({ children, posts }) {
   let greeting = locale === "en" ? "Hello World!" : "Привіт, Світ!"
 
   if (error) return <div>Error: failed to load</div>
-  if (!data) return <div>Loading...</div>
+  if (!data) return null
 
   return (
     <Container>
@@ -56,8 +56,6 @@ export default function Layout({ children, posts }) {
         </Grid>
         <Grid item xs={6} style={{ textAlign: 'center' }}>
           {children}
-          <h1>{t('welcome_msg')}</h1>
-          <h2>{ greeting }</h2>
         </Grid>
         <Grid item xs={3}>
           <Item>

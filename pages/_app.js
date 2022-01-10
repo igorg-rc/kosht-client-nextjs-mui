@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ThemeProvider } from '@mui/material/styles';
@@ -15,19 +15,40 @@ const clientSideEmotionCache = createEmotionCache();
 
 const MyApp = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps, layoutProps } = props;
-  const {locale} = useRouter();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+ useEffect(() => {
+   const handleLoadingStart =  url => url !== router.pathname ? setLoading(true) : setLoading(false);
+   const handleLoadingComplete = url => setLoading(false);
+
+   router.events.on("routeChangeStart", handleLoadingStart)
+   router.events.on("routeChangeComplete", handleLoadingComplete)
+   router.events.on("routeChangeError", handleLoadingComplete)
+ }, [router])
+
+ const Loading = props => <>
+  {
+    props.loading && props.locale === "en" 
+      ? 
+      <h1>Loading...</h1> 
+      : 
+      (props.loading && props.locale === "uk" ? <h1>Завантаження...</h1> : null)
+  }
+  </>
 
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>{ locale === "en" ? "Kosht | We talk about personal finances" : "Кошт | Говоримо про особисті фінанси" }</title>
+        <title>{ router.locale === "en" ? "Kosht | We talk about personal finances" : "Кошт | Говоримо про особисті фінанси" }</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <Layout {...layoutProps}>
-          <Component {...pageProps} />
+          <Loading loading={loading} locale={router.locale} />
+          <div style={{ display: loading ? 'none' : 'block' }}><Component {...pageProps} /></div>
         </Layout>
         </ThemeProvider>
     </CacheProvider>

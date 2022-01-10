@@ -34,6 +34,8 @@ const Index = props => {
 
   const {locale, locales} = useRouter()
   const theme = useTheme()
+  const router = useRouter()
+  const { slug } = router.query
   const {data} = useSWR([locale, "hello"], loadData)
   const { t } = useTranslation('common')
   // const {categoriesData} = useSWR([locale, "categories"], loadCategories)
@@ -47,6 +49,9 @@ const Index = props => {
     marginBottom: 10
   }));
 
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
 
   return (
     <>
@@ -54,11 +59,10 @@ const Index = props => {
       <Item>
         <Link 
           style={{ color: '#000', textDecoration: 'none' }}
-          href={i.slug}>{i.title}
+          href={{ pathname: `/${i.slug}`, query: slug }}>{i.title}
         </Link>
       </Item>
     ))}
-    
     {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </>
   );

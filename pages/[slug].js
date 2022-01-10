@@ -1,4 +1,5 @@
 import axios from "axios"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
 export default function Post({ post }) {
   return <div style={{ border: '1px solid #2E3A59', padding: '0 15px', borderRadius: 6 }}>
@@ -8,7 +9,7 @@ export default function Post({ post }) {
 }
 
 
-export async function getStaticPaths({ locales }) {
+export async function getStaticPaths({ locale }) {
   const res = await axios.get('https://kosht-api.herokuapp.com/api/posts')
   const posts = res.data
 
@@ -23,9 +24,9 @@ export async function getStaticPaths({ locales }) {
   }
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params, locale }) {
   const res = await axios.get(`https://kosht-api.herokuapp.com/api/posts/slug/${params.slug}`)
   const post = res.data 
 
-  return { props: { post } }
+  return { props: { post, ...await serverSideTranslations(locale, ["common"]) } }
 }

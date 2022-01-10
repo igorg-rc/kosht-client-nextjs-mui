@@ -48,6 +48,7 @@ const MyApp = (props) => {
         <CssBaseline />
         <Layout {...layoutProps}>
           <Loading loading={loading} locale={router.locale} />
+          {loading ? <h1>Some content</h1> : null}
           <div style={{ display: loading ? 'none' : 'block' }}><Component {...pageProps} /></div>
         </Layout>
         </ThemeProvider>

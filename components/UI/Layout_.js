@@ -61,6 +61,8 @@ export default function Layout({ children, posts }) {
           <Item>
             <p>{t('common:right_menu')}</p>
             <h3>{t('common:welcome_msg')}</h3>
+            <p>{greeting}</p>
+            
           </Item>
         </Grid>
       </Grid>

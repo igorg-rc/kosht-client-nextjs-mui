@@ -5,6 +5,8 @@ import { Header } from './Header'
 import useSWR from 'swr'
 import Link from 'next/link'
 import styled from '@emotion/styled'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -17,6 +19,8 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Layout({ children, posts }) {
+  const { locale, locales, pathname } = useRouter()
+  const { t } = useTranslation()
 
   const {data, error} = useSWR("user", async () => {
     const res = await axios.get("https://kosht-api.herokuapp.com/api/categories")
@@ -25,6 +29,7 @@ export default function Layout({ children, posts }) {
     return data
   })
 
+  let greeting = locale === "en" ? "Hello World!" : locale === "es" ? "Hola!" : "Привіт!"
 
   if (error) return <div>Error: failed to load</div>
   if (!data) return <div>Loading...</div>
@@ -37,16 +42,27 @@ export default function Layout({ children, posts }) {
           <Item>
             {data.map(i => (
               <div>
-                <Link href={`/categories/${i.slug}`}>{i.title_en}</Link>
+                <Link href={`/categories/${i.slug}`}>{locale === "en" ? i.title_en : i.title_ua}</Link>
+              </div>
+            ))}
+          </Item>
+          <Item>
+            {locales.map(item => (
+              <div key={item}>
+                <Link href={`/${pathname}`} locale={item}>{item}</Link>
               </div>
             ))}
           </Item>
         </Grid>
         <Grid item xs={6}>
           {children}
+          { greeting }
         </Grid>
         <Grid item xs={3}>
-          <Item>Right menu</Item>
+          <Item>
+            Right menu
+            {/* <pre>{JSON.stringify(sampleData, null, 2)}</pre> */}
+          </Item>
         </Grid>
       </Grid>
     </Container>

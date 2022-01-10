@@ -8,18 +8,19 @@ import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
 import Layout from '../components/UI/Layout_';
 import '../styles/globals.css';
-// import withLayout, {getStaticProps} from '../components/containers/withLayout';
-
+import { appWithTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
 const MyApp = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps, layoutProps } = props;
+  const {locale} = useRouter();
 
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>Kosht | We talk about personal finances</title>
+        <title>{ locale === "en" ? "Kosht | We talk about personal finances" : "Кошт | Говоримо про особисті фінанси" }</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
@@ -34,7 +35,7 @@ const MyApp = (props) => {
 }
 
 
-export default MyApp
+export default appWithTranslation(MyApp);
 
 
 MyApp.propTypes = {

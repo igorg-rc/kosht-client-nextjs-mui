@@ -1,8 +1,3 @@
-// import styled from '@emotion/styled';
-// import Box from '@mui/material/Box';
-// import IconButton from '@mui/material/IconButton';
-// import MenuIcon from '@mui/icons-material/Menu';
-// import { AppBar, Toolbar, Button, Typography, Container, Grid, TextField, InputAdornment, Fade, IconButton } from '@mui/material'
 import { useRouter } from 'next/router'
 import { makeStyles } from '@mui/styles'
 import { useState, useRef } from 'react'
@@ -194,6 +189,7 @@ export const Header = () => {
   const [query, setQuery] = useState("")
   const router = useRouter()
   const searchInputRef = useRef()
+  const { locale } = useRouter()
 
   const onSearchChange = query => setQuery(query)
   const handleMenuOpen    = () => setOpenMenu(true)
@@ -221,7 +217,7 @@ export const Header = () => {
                 edge="start"
                 sx={{ mr: 2 }}
               >
-                Kosht
+                { locale === "en" ? "Kosht" : "Кошт"}
               </Button>
             </Grid>
             <Grid item xs={9} style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -235,13 +231,13 @@ export const Header = () => {
                       lineHeight: '180%', 
                       color: theme.palette.primary.main
                     }}
-                    >We talk about personal finances
+                    >{ locale === "en" ? "We talk about personal finances" : "Говоримо про особисті фінанси" }
                   </Typography>
                   <div className={styles.search}>
                     <TextField 
                       variant="outlined"
                       // placeholder={t("header.searchPlaceholder")} 
-                      placeholder="Search" 
+                      placeholder={ locale === "en" ? "Search" : "Пошук" }
                       inputProps={{ 
                         style: { 
                           margin: '0 2px', 
@@ -293,7 +289,7 @@ export const Header = () => {
                               onClick={handleSearch}
                               disableElevation
                               // >{t("header.searchBtn")}
-                              >Find
+                              >{ locale === "en" ? "Find" : "Знайти" }
                             </Button>
                           </InputAdornment>
                         ),

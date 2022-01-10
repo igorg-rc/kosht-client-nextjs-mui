@@ -2,18 +2,23 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import { makeStyles, useTheme } from '@mui/styles';
-import LeftMenu from '../components/UI/_LeftMenu';
+import { useTheme } from '@mui/styles';
 import axios from 'axios';
-import Content from '../components/Example/Content';
 import Link from 'next/link';
-// import withLayout, {getStaticProps} from "../components/containers/withLayout"
+import { useRouter } from 'next/router';
+import useSWR from 'swr';
 
-const useStyles = makeStyles(theme => ({
-  paragraph: { color: 'red', fontSize: 30 }
-}))
+const loadData = async locale => {
+  const response = await fetch("/api/hello", { headers: { "Accept-Language": locale } })
+  const data = response.json()
+  return data 
+}
+
+const loadCategories = async locale => {
+  const categories = await fetch("https://kosht-api.herokuapp.com/api/categories", { headers: { "Accept-Language": locale } })
+  const categoriesData = categories.json()
+  return categoriesData
+}
 
 const Index = props => {
   const {
@@ -22,10 +27,13 @@ const Index = props => {
     comments, 
     albums, 
     contacts, 
-    categories
+    categories,
   } = props
 
+  const {locale, locales} = useRouter()
   const theme = useTheme()
+  const {data} = useSWR([locale, "hello"], loadData)
+  // const {categoriesData} = useSWR([locale, "categories"], loadCategories)
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -34,20 +42,21 @@ const Index = props => {
     color: theme.palette.primary.main,
     border: `1px solid ${theme.palette.primary.main}`,
     marginBottom: 10
-    // height: '100vh'
   }));
+
 
   return (
     <>
-    {posts?.map(i => (
-    <Item>
-      <Link 
-        style={{ color: '#000', textDecoration: 'none' }}
-        href={i.slug}>
-          {i.title}
+    {posts?.slice(0, 5).map(i => (
+      <Item>
+        <Link 
+          style={{ color: '#000', textDecoration: 'none' }}
+          href={i.slug}>{i.title}
         </Link>
-    </Item>
+      </Item>
     ))}
+    {/* <h1>Name</h1> */}
+    {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </>
   );
 }
@@ -70,6 +79,6 @@ export async function getStaticProps(context) {
   const albums = fetchedAlbums.data
 
   return {
-    props: {users, posts, comments, albums, contacts, categories} 
+    props: {users, posts, comments, albums, contacts, categories } 
   }
 }

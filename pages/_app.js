@@ -10,6 +10,7 @@ import Layout from '../components/UI/Layout_';
 import '../styles/globals.css';
 import { appWithTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { SpinnerContent } from '../components/UI/Spinners';
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
@@ -31,9 +32,9 @@ const MyApp = (props) => {
   {
     props.loading && props.locale === "en" 
       ? 
-      <h1>Loading...</h1> 
+      <h3>Loading...</h3> 
       : 
-      (props.loading && props.locale === "uk" ? <h1>Завантаження...</h1> : null)
+      (props.loading && props.locale === "uk" ? <h3>Завантаження...</h3> : null)
   }
   </>
 
@@ -47,8 +48,7 @@ const MyApp = (props) => {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <Layout {...layoutProps}>
-          <Loading loading={loading} locale={router.locale} />
-          {loading ? <h1>Some content</h1> : null}
+          <SpinnerContent loading={loading} locale={router.locale} />
           <div style={{ display: loading ? 'none' : 'block' }}><Component {...pageProps} /></div>
         </Layout>
         </ThemeProvider>

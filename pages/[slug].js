@@ -9,7 +9,6 @@ export default function Post({ post }) {
   const { slug } = router.query
 
   return <div style={{ border: '1px solid #2E3A59', padding: '0 15px', borderRadius: 6 }}>
-    <h2>{t("welcome_msg")}</h2>
     <h2>{slug}</h2>
     <h4>{post.title}</h4>
      <p style={{ textAlign: 'justify' }}>{post.body}</p> 

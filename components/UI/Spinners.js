@@ -41,11 +41,11 @@ export const SpinnerLoadPage = ({ loadingStatus }) => {
   </div>
 }
 
-export const SpinnerContent = ({ loadingStatus }) => {
+export const SpinnerContent = ({ loading, locale }) => {
   const styles = useStyles()
   return <div className={styles.main}>
     <ScaleLoader 
-      loading={loadingStatus} 
+      loading={loading} 
       height={50}
       width={5}
       radius={0}
@@ -54,7 +54,11 @@ export const SpinnerContent = ({ loadingStatus }) => {
       className="page-loading-spinner" 
     />
     <Typography component="h3" className={styles.title}>
-      <Trans i18nKey="loading.loadingStatus">Loading...</Trans>
+      {loading && locale === "en" 
+      ? 
+      <h3>Loading...</h3> 
+      : 
+      (loading && locale === "uk" ? <h3>Завантаження...</h3> : null)}
     </Typography>
   </div>
 }

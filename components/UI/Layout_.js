@@ -57,7 +57,7 @@ export default function Layout({ children, posts }) {
                     // : 
                     // (query.slug && locale === "en" ? `/${query.slug}` : `/${pathname}`) 
                   // }
-                  href={ item == "uk" ? `/${asPath}` : `/en/${asPath}` }
+                  href={ item == "uk" ? asPath : `/en${asPath}` }
                   locale={item}
                 >{item}
                 </Link>

@@ -26,17 +26,14 @@ const MyApp = (props) => {
    router.events.on("routeChangeStart", handleLoadingStart)
    router.events.on("routeChangeComplete", handleLoadingComplete)
    router.events.on("routeChangeError", handleLoadingComplete)
+
+    return () => {
+      router.events.off("routeChangeStart", url => setLoading(false))
+      router.events.off("routeChangeComplete", url => setLoading(false))
+      router.events.off("routeChangeError", url => setLoading(false))
+    }
  }, [router])
 
- const Loading = props => <>
-  {
-    props.loading && props.locale === "en" 
-      ? 
-      <h3>Loading...</h3> 
-      : 
-      (props.loading && props.locale === "uk" ? <h3>Завантаження...</h3> : null)
-  }
-  </>
 
   return (
     <CacheProvider value={emotionCache}>

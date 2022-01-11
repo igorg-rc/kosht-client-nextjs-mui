@@ -5,10 +5,12 @@ import { useRouter } from "next/router"
 
 export default function Post({ post }) {
   const { t } = useTranslation()
-  const router = useRouter()
-  const { slug } = router.query
+  const { locale, locales, defaultLocale, query } = useRouter()
+  const { slug } = query
 
-  return <div style={{ border: '1px solid #2E3A59', padding: '0 15px', borderRadius: 6 }}>
+  console.log(locale, locales, defaultLocale)
+
+  return <div style={{ border: '1px solid #2E3A59', background: '#fff', padding: '0 15px', borderRadius: 6 }}>
     <h2>{slug}</h2>
     <h4>{post.title}</h4>
      <p style={{ textAlign: 'justify' }}>{post.body}</p> 
@@ -24,14 +26,9 @@ export async function getStaticPaths() {
     { params: { slug: post.slug } }
   ))
 
-  // const paths = [
-  //   { params: { type: "slug" }, locale: "uk" },
-  //   { params: { type: "slug" }, locale: "en" }
-  // ]
-
   return {
     paths: paths,
-    fallback: true
+    fallback: 'blocking'
   }
 }
 

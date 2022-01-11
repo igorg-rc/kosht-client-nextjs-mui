@@ -20,13 +20,12 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Layout({ children, posts }) {
-  const { locale, locales, pathname, query } = useRouter()
+  const { locale, locales, pathname, query, asPath } = useRouter()
   const { t } = useTranslation()
 
   const {data, error} = useSWR("user", async () => {
     const res = await axios.get("https://kosht-api.herokuapp.com/api/categories")
     const data = res.data
-    console.log(data)
     return data
   })
 
@@ -34,8 +33,6 @@ export default function Layout({ children, posts }) {
 
   if (error) return <div>Error: failed to load</div>
   if (!data) return null
-
-  console.log(query.slug)
 
   return (
     <Container>
@@ -53,13 +50,14 @@ export default function Layout({ children, posts }) {
             {locales.map(item => (
               <div key={item}>
                 <Link 
-                  href={  
-                    query.slug && locale === "uk" 
-                    ? 
-                    `/en/${query.slug}` 
-                    : 
-                    (query.slug && locale === "en" ? `/${query.slug}` : `/${pathname}`) 
-                  } 
+                  // href={
+                    // query.slug && locale === "uk" 
+                    // ? 
+                    // `/en/${query.slug}` 
+                    // : 
+                    // (query.slug && locale === "en" ? `/${query.slug}` : `/${pathname}`) 
+                  // }
+                  href={ item == "uk" ? `/${asPath}` : `/en/${asPath}` }
                   locale={item}
                 >{item}
                 </Link>

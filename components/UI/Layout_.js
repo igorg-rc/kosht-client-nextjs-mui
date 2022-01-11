@@ -71,7 +71,9 @@ export default function Layout({ children, posts }) {
         <Grid item xs={3}>
           <Item>
             <p>{t('common:right_menu')}</p>
-            <h3 style={{ color: 'red' }}>{t('common:welcome_msg')}</h3>
+            <h3 
+              // style={{ color: 'red' }}
+            >{t('common:welcome_msg')}</h3>
             <p>{greeting}</p>
 
           </Item>

@@ -23,17 +23,13 @@ export async function getStaticPaths() {
   const paths = posts.map(post => (
     { params: { slug: post.slug } }
   ))
-
-  // const paths = [
-  //   { params: { type: "slug" }, locale: "uk" },
-  //   { params: { type: "slug" }, locale: "en" }
-  // ]
-
+  
   return {
     paths,
     fallback: 'blocking'
-  }
+    }
 }
+
 
 export async function getStaticProps(context) {
   const res = await axios.get(`https://kosht-api.herokuapp.com/api/posts/slug/${context.params.slug}`)

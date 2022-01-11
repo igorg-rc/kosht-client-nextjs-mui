@@ -7,6 +7,7 @@ import Link from 'next/link'
 import styled from '@emotion/styled'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { SpinnerContent } from './Spinners'
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -19,7 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Layout({ children, posts }) {
-  const { locale, locales, pathname, replace } = useRouter()
+  const { locale, locales, pathname, query } = useRouter()
   const { t } = useTranslation()
 
   const {data, error} = useSWR("user", async () => {
@@ -33,6 +34,8 @@ export default function Layout({ children, posts }) {
 
   if (error) return <div>Error: failed to load</div>
   if (!data) return null
+
+  console.log(query.slug)
 
   return (
     <Container>
@@ -49,7 +52,17 @@ export default function Layout({ children, posts }) {
           <Item>
             {locales.map(item => (
               <div key={item}>
-                <Link href={`/${pathname}`} onClick={() => replace(`/${pathname}`)} locale={item}>{item}</Link>
+                <Link 
+                  href={  
+                    query.slug && locale === "uk" 
+                    ? 
+                    `/en/${query.slug}` 
+                    : 
+                    (query.slug && locale === "en" ? `/${query.slug}` : `/${pathname}`) 
+                  } 
+                  locale={item}
+                >{item}
+                </Link>
               </div>
             ))}
           </Item>
@@ -62,7 +75,7 @@ export default function Layout({ children, posts }) {
             <p>{t('common:right_menu')}</p>
             <h3>{t('common:welcome_msg')}</h3>
             <p>{greeting}</p>
-            
+
           </Item>
         </Grid>
       </Grid>

@@ -34,6 +34,8 @@ export default function Layout({ children, posts }) {
   if (error) return <div>Error: failed to load</div>
   if (!data) return null
 
+  console.log(`/en${asPath}`)
+
   return (
     <Container>
       <Header />

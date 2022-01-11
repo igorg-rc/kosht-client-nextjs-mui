@@ -12,7 +12,6 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.primary.main,
   border: `1px solid ${theme.palette.primary.main}`,
   marginBottom: 10
-  // height: '100vh'
 }));
 
 export default function Categories(props) {
@@ -21,9 +20,8 @@ export default function Categories(props) {
   const { slug } = query
   return (
     <div>
-      {/* Categories -> Credits */}
       {posts?.map(i => (
-        <Item>
+        <Item key={i._id}>
           <Link 
             style={{ color: '#000', textDecoration: 'none' }}
             href={`/${i.slug}`}>

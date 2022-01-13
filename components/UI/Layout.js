@@ -4,6 +4,7 @@ import { Header } from './Header'
 import LeftMenu from './LeftMenu'
 import { RightMenu } from './RightMenu_'
 
+
 export default function Layout({ children }) {
 
   return <MyContainer>

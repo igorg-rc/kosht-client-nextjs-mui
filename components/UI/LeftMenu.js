@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { Item, LangSwitcher, LeftMenuList, SectionTitle, SubscribeInput } from './UIUnits'
 import { useState } from 'react'
 
+
 export default function LeftMenu() {
   const [userInput, setUserInput] = useState("")
   const { locale, locales } = useRouter()

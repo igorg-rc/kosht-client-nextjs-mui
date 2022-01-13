@@ -7,7 +7,7 @@ import { CacheProvider } from '@emotion/react';
 import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
 import Layout from '../components/UI/Layout';
-import '../styles/globals.css';
+import '../styles/index.css';
 import { appWithTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { SpinnerContent } from '../components/UI/UIUnits';

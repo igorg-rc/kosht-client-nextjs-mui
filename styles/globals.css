@@ -12,7 +12,7 @@ body {
   background: #F9F9FB !important;
 }
 
-#brand-link {
+/* #brand-link {
   height: 30px !important;
   margin-right: auto !important;
 }
@@ -58,7 +58,7 @@ code {
 .content-row:last-child div {
   border-bottom: none !important;
   padding-bottom: 0 !important;
-}
+} */
 
 
 /* .MuiInputBase-root, .MuiOutlinedInput-root, .makeStyles-searchInput-10, .MuiInputBase-formControl, .MuiInputBase-adornedStart, .MuiOutlinedInput-adornedStart, .MuiInputBase-adornedEnd, .MuiOutlinedInput-adornedEnd, .makeStyles-search-9, .MuiFormControl-root, .MuiTextField-root {
@@ -182,7 +182,7 @@ button:focus {
   padding: 5px 0 !important;
   margin: 5px 0 !important;
 } */
-
+/* 
 .MuiTableCell-root, 
 .MuiTableCell-body  {
   padding: 7px 0 !important;
@@ -192,14 +192,14 @@ button:focus {
 .currencies {
   overflow-x: hidden !important;
   max-width: 100% !important;
-}
+} */
 
 /* .currencies tr th:nth-child(4), 
 .currencies tr td:nth-child(7),
 .currencies tr td:nth-child(8){
   text-align: right !important;
  } */
- .currencies tr td:nth-child(2) {
+ /* .currencies tr td:nth-child(2) {
    min-width: 100px;
  }
 
@@ -214,7 +214,7 @@ button:focus {
  .currencies tr td:nth-child(7)::after {
   content: "\00a0/\00a0" !important;
   color: "#B8B8B8" !important;
-}
+} */
 
  /* .currencies thead tr:nth-child(2) {
    background-color: lightgrey;
@@ -223,13 +223,12 @@ button:focus {
  } */
 
 
-.sorting-btn {
+/* .sorting-btn {
   padding: 0 2px;
 }
 
 .sorting-btn:hover {
   cursor: pointer;
   color: grey;
-}
+} */
 
-/* try css-only tabs styles */

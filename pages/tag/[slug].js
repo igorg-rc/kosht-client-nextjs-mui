@@ -34,7 +34,7 @@ export default function PostsByTags(props) {
 }
 
 export async function getStaticPaths()  {
-  const res = await axios.get('https://kosht-api.herokuapp.com/api/categories')
+  const res = await axios.get('https://kosht-api.herokuapp.com/api/tags')
   const categories = res.data
 
   const paths = categories.map(category => (

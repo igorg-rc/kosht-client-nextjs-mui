@@ -4,10 +4,10 @@ import { red } from '@mui/material/colors';
 // Create a theme instance.
 const theme = createTheme({
   props: {
-    MuiButton: {
-      disableElevation: true,
-      disableRipple: true
-    }
+    // MuiButton: {
+    //   disableElevation: true,
+    //   disableRipple: true
+    // }
   },
   input: {
     border: 'none'

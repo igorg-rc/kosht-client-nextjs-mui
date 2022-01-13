@@ -6,34 +6,33 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider } from '@emotion/react';
 import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
-import Layout from '../components/UI/Layout_';
+import Layout from '../components/UI/Layout';
 import '../styles/globals.css';
 import { appWithTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
-import { SpinnerContent } from '../components/UI/Spinners';
+import { SpinnerContent } from '../components/UI/UIUnits';
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
-const MyApp = (props) => {
+const MyApp = props => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps, layoutProps } = props;
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
- useEffect(() => {
-   const handleLoadingStart =  url => url !== router.pathname ? setLoading(true) : setLoading(false);
-   const handleLoadingComplete = url => setLoading(false);
+  useEffect(() => {
+    const handleLoadingStart =  url => url !== router.pathname ? setLoading(true) : setLoading(false);
+    const handleLoadingComplete = () => setLoading(false);
 
-   router.events.on("routeChangeStart", handleLoadingStart)
-   router.events.on("routeChangeComplete", handleLoadingComplete)
-   router.events.on("routeChangeError", handleLoadingComplete)
+    router.events.on("routeChangeStart", handleLoadingStart)
+    router.events.on("routeChangeComplete", handleLoadingComplete)
+    router.events.on("routeChangeError", handleLoadingComplete)
 
     return () => {
-      router.events.off("routeChangeStart", url => setLoading(false))
+      router.events.off("routeChangeStart", () => setLoading(false))
       router.events.off("routeChangeComplete", url => setLoading(false))
       router.events.off("routeChangeError", url => setLoading(false))
     }
- }, [router])
-
+  }, [router])
 
   return (
     <CacheProvider value={emotionCache}>
@@ -53,9 +52,7 @@ const MyApp = (props) => {
   );
 }
 
-
 export default appWithTranslation(MyApp);
-
 
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,

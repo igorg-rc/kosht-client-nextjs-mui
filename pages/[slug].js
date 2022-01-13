@@ -2,6 +2,7 @@ import axios from "axios"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useRouter } from "next/router"
+import { Item } from "../components/UI/UIUnits"
 
 export default function Post({ post }) {
   const { t } = useTranslation()
@@ -10,11 +11,14 @@ export default function Post({ post }) {
 
   console.log(locale, locales, defaultLocale)
 
-  return <div style={{ border: '1px solid #2E3A59', background: '#fff', padding: '0 15px', borderRadius: 6 }}>
+  return <Item>
+    <div style={{ padding: '0 20px' }}>
     <h2>{slug}</h2>
     <h4>{post.title}</h4>
-     <p style={{ textAlign: 'justify' }}>{post.body}</p> 
-  </div>
+    <p style={{ textAlign: 'justify' }}>{post.body}</p> 
+    </div>
+
+  </Item>
 }
 
 

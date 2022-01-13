@@ -14,7 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
   marginBottom: 10
 }));
 
-export default function Categories(props) {
+export default function PostsByCategories(props) {
   const { posts } = props
   const { query } = useRouter()
   const { slug } = query
@@ -48,8 +48,8 @@ export async function getStaticPaths()  {
 }
 
 export async function getStaticProps(context) {
-  const res = await axios.get(`https://kosht-api.herokuapp.com/api/posts/categories/${context.params.slug}`)
-  const posts = res.data
+  const postsList = await axios.get(`https://kosht-api.herokuapp.com/api/posts/categories/${context.params.slug}`)
+  const posts = postsList.data
 
   return {
     props: { posts, ...await serverSideTranslations(context.locale, ["common"]) }

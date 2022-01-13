@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import { Item } from '../components/UI/UIUnits';
 
 const loadData = async locale => {
   const response = await fetch("/api/hello", { headers: { "Accept-Language": locale } })
@@ -40,15 +41,6 @@ const Index = props => {
   const { t } = useTranslation('common')
   // const {categoriesData} = useSWR([locale, "categories"], loadCategories)
 
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.primary.main,
-    border: `1px solid ${theme.palette.primary.main}`,
-    marginBottom: 10
-  }));
-
   if (router.isFallback) {
     return <div>Loading...</div>
   }
@@ -56,14 +48,13 @@ const Index = props => {
   return (
     <>
     {posts?.slice(0, 5).map(i => (
-      <Item>
+      <Item key={i._id}>
         <Link 
           style={{ color: '#000', textDecoration: 'none' }}
           href={{ pathname: `/${i.slug}`, query: slug }}>{i.title}
         </Link>
       </Item>
     ))}
-    {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </>
   );
 }

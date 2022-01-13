@@ -221,7 +221,6 @@ export const Header = () => {
                   <div className={styles.search}>
                     <TextField 
                       variant="outlined"
-                      // placeholder={t("header.searchPlaceholder")} 
                       placeholder={t('header.searchPlaceholder')}
                       inputProps={{ 
                         style: { 
@@ -229,6 +228,7 @@ export const Header = () => {
                           color: 'red',
                           fontSize: 12, 
                           padding: '10px 0', 
+
                           width: '300px', 
                           fontFamily: 'Gilroy',
                           fontWeight: 400, 

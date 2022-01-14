@@ -1,23 +1,20 @@
-
-import * as React from 'react';
-import { useTheme, makeStyles } from '@mui/styles';
-import axios from 'axios';
-import Link from '../src/Link';
-import { useRouter } from 'next/router';
-import useSWR from 'swr';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
-import { SectionTitle } from '../components/UI/UIUnits';
-import { Item } from '../components/UI/UIUnits';
-import { Typography } from '@mui/material';
+import axios from "axios"
+import Link from "../../src/Link"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import { Item, SectionTitle } from "../../components/UI/UIUnits"
+import { useTheme, makeStyles } from "@mui/styles"
+import { Typography } from "@mui/material"
+import { useRouter } from "next/router"
 import moment from 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/uk'
+
 
 const useStyles = makeStyles(theme => ({
   main: {
     border: '1px solif #000',
   },
+  
   linkText:{
     textAlign: 'left',
     fontSize: 18,
@@ -69,28 +66,14 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const loadData = async locale => {
-  const response = await fetch("/api/hello", { headers: { "Accept-Language": locale } })
-  const data = response.json()
-  return data 
-}
 
-
-const Index = ({posts}) => {
-  const {locale, locales} = useRouter()
-  const theme = useTheme()
-  const router = useRouter()
-  const { slug } = router.query
-  const {data} = useSWR([locale, "hello"], loadData)
+export const PostGeneralView = props => {
+  const {items} = props
   const styles = useStyles()
+  const router = useRouter()
 
-  if (router.isFallback) {
-    return <div>Loading...</div>
-  }
-
-  return (
-    <>
-    {posts?.map(i => <Item style={{ border: '1px sold #000' }} key={i._id}>
+  return <>
+    {items?.map(i => <Item style={{ border: '1px sold #000' }} key={i._id}>
       <div style={{ border: '1px sold #000', padding: '20px 0' }}>
       <Typography paragraph className={styles.topBage}>
         {i.categories.map(item => (
@@ -105,6 +88,7 @@ const Index = ({posts}) => {
           </Link>
         ))}
       <span className={styles.date}>
+        {/* if post was created less then 30 days ago is "time_ago" format , otherwise "date: day month year" */}
         {new Date(Date.now()).getDate() - new Date(i.createdAt).getDate()  < 30 ?
           (router.locale === "uk" ? 
             moment.utc(i.createdAt).local().locale('uk').fromNow() : 
@@ -123,25 +107,25 @@ const Index = ({posts}) => {
         className={styles.textDescripton}
       >{i.description}
       </Typography>
-      {i.imgUrl && <Image src={i.imgUrl} />}
       </div>
-    </Item>)} 
-    </>
-  );
+    </Item>)}
+
+  </>
 }
 
 
-export default Index
+// export const PostListView = props => {
 
-export async function getStaticProps({ locale }) {
-  const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts', { params: { _limit: 10 } })  
-  const fetchedContacts = await axios.get('https://kosht-api.herokuapp.com/api/contacts')
-  const fetchedCategories = await axios.get('https://kosht-api.herokuapp.com/api/categories')
-  const posts = fetchedPosts.data
-  const categories = fetchedCategories.data
-  const contacts = fetchedContacts.data
+//   return <>
+//     <h1>PostListView</h1>
+//   </>
+// }
 
-  return {
-    props: {posts, contacts, categories, ...await serverSideTranslations(locale, ['common']) } 
-  }
+
+
+export const DetailListView = props => {
+
+  return <>
+    <h1>DetailListView</h1>
+  </>
 }

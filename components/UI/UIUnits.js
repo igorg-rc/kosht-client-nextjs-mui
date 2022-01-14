@@ -138,7 +138,8 @@ export const SpinnerContent = ({ loading, locale }) => {
   );
 };
 
-export const SectionTitle = ({ title }) => {
+export const SectionTitle = props => {
+  const { title, children, link } = props
   const theme = useTheme();
   return (
     <Typography
@@ -153,7 +154,7 @@ export const SectionTitle = ({ title }) => {
       variant="h1"
       component="h1"
     >
-      {title}
+      {link ? children : title}
     </Typography>
   );
 };

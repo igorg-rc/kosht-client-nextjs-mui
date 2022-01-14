@@ -15,14 +15,15 @@ import { SectionTitle } from './UIUnits';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
+    // flexGrow: 1,
     [theme.breakpoints.down('xs')]: {
       marginBottom: 10,
       paddingBottom: 10
     },
   },
   appBar: {
-    background: '#F9F9F9',
+    // background: '#F9F9F9',
+    background: 'grey',
     height: '100px',
     display: 'flex',
     alignItems: 'center'
@@ -202,7 +203,7 @@ export const Header = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" elevation={0} style={{ background: "#f9f9f9" }}>
         <Toolbar>
-          <Grid container spacing={2}>
+          <Grid container>
             <Grid item xs={3}>
               <Button
                 onClick={() => router.push("/")}
@@ -220,6 +221,7 @@ export const Header = () => {
                   <SectionTitle title={t('header.brandPhrase')} />
                   <div className={styles.search}>
                     <TextField 
+                      fullWidth
                       variant="outlined"
                       placeholder={t('header.searchPlaceholder')}
                       inputProps={{ 
@@ -228,7 +230,6 @@ export const Header = () => {
                           color: 'red',
                           fontSize: 12, 
                           padding: '10px 0', 
-
                           width: '300px', 
                           fontFamily: 'Gilroy',
                           fontWeight: 400, 
@@ -268,7 +269,7 @@ export const Header = () => {
                                 padding: '6px 20px',
                                 fontFamily: 'Gilroy, sans-serif',
                                 fontWeight: 'bold',
-                                marginRight: -12,
+                                // marginRight: -12,
                                 '&:hover': {
                                   color: 'yellow'
                                 }

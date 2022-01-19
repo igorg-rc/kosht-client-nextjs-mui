@@ -194,8 +194,9 @@ export const Header = () => {
   const handleMenuClose   = () => setOpenMenu(false)
   const handleSearchClose = () => setOpenSearch(false)
 
-  const handleSearch = () => {
-    query ? router.push(`/search/${query}`) : router.push(`/`)
+  const handleSearch = event => {
+    event.preventDefault()
+    query && router.push(`/search/${query}`)
     setQuery("")
   }
 
@@ -220,6 +221,7 @@ export const Header = () => {
             <Grid item xs={9} style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <SectionTitle title={t('header.brandPhrase')} />
                   <div className={styles.search}>
+                    <form onSubmit={handleSearch}>
                     <TextField 
                       fullWidth
                       variant="outlined"
@@ -258,6 +260,7 @@ export const Header = () => {
                         endAdornment: (
                           <InputAdornment position="end">
                             <Button 
+                              type="submit"
                               id="search-menu-button" 
                               variant="contained" 
                               color="secondary" 
@@ -275,15 +278,15 @@ export const Header = () => {
                                 }
                               }}
                               className={styles.searchBtn}
-                              onClick={handleSearch}
+                              
                               disableElevation
                               >{t('header.searchBtn')}
                             </Button>
                           </InputAdornment>
                         )
-                        
                       }}
                     />
+                    </form>
                   </div>
             </Grid>
           </Grid>

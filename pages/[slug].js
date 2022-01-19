@@ -84,7 +84,7 @@ export default function Post({ post }) {
     <Item style={{ border: '1px sold #000' }} key={post._id}>
       <div style={{ border: '1px sold #000', padding: '20px 0' }}>
       <Typography paragraph className={styles.topBage}>
-        {post.categories.map(item => (
+        {post.categories?.map(item => (
           <Link 
             key={item._id}
             href={`/category/${item.slug}`} 
@@ -122,7 +122,7 @@ export async function getStaticPaths() {
   const res = await axios.get(API_LINK)
   const posts = res.data
 
-  const paths = posts.map(post => (
+  const paths = posts.data.map(post => (
     { params: { slug: post.slug } }
   ))
 
@@ -134,7 +134,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const res = await axios.get(`${API_LINK}/slug/${context.params.slug}`)
-  const post = res.data 
+  const post = res.data
 
   return { 
     props: { 

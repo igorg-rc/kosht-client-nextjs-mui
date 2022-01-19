@@ -77,12 +77,12 @@ const loadData = async locale => {
 
 
 const Index = ({posts}) => {
-  const {locale, locales} = useRouter()
-  const theme = useTheme()
+  const { locale } = useRouter()
   const router = useRouter()
   const { slug } = router.query
   const {data} = useSWR([locale, "hello"], loadData)
   const styles = useStyles()
+  const { t } = useTranslation("common")
 
   if (router.isFallback) {
     return <div>Loading...</div>
@@ -90,7 +90,7 @@ const Index = ({posts}) => {
 
   return (
     <>
-    {posts?.map(i => <Item style={{ border: '1px sold #000' }} key={i._id}>
+    {posts ? posts.data.map(i => <Item style={{ border: '1px sold #000' }} key={i._id}>
       <div style={{ border: '1px sold #000', padding: '20px 0' }}>
       <Typography paragraph className={styles.topBage}>
         {i.categories.map(item => (
@@ -125,7 +125,7 @@ const Index = ({posts}) => {
       </Typography>
       {i.imgUrl && <Image src={i.imgUrl} />}
       </div>
-    </Item>)} 
+    </Item>) : "postList.noPosts"} 
     </>
   );
 }
@@ -134,7 +134,9 @@ const Index = ({posts}) => {
 export default Index
 
 export async function getStaticProps({ locale }) {
-  const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts', { params: { _limit: 10 } })  
+  const LOCAL_API_LINK = "https://kosht-api.herokuapp.com/api"
+  const PROD_API_LINK = "http:localhost:5000/api"
+  const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
   const fetchedContacts = await axios.get('https://kosht-api.herokuapp.com/api/contacts')
   const fetchedCategories = await axios.get('https://kosht-api.herokuapp.com/api/categories')
   const posts = fetchedPosts.data

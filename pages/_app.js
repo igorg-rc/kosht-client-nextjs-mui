@@ -10,7 +10,7 @@ import Layout from '../components/UI/Layout'
 import '../styles/index.css'
 import { appWithTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-// import { SpinnerContent } from '../components/UI/UIUnits'
+import { SpinnerContent } from '../components/UI/UIUnits'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -45,7 +45,7 @@ const MyApp = props => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Layout {...layoutProps}>
-          {/* <SpinnerContent loading={loading} locale={router.locale} /> */}
+          <SpinnerContent loading={loading} locale={router.locale} />
           <div style={{ display: loading ? 'none' : 'block' }}>
             <Component {...pageProps} />
           </div>

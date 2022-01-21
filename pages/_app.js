@@ -11,7 +11,7 @@ import { appWithTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { SpinnerContent } from '../components/UI/UIUnits'
 import SimpleReactLightbox from 'simple-react-lightbox'
-import '../styles/index.css'
+// import '../styles/index.css'
 
 const clientSideEmotionCache = createEmotionCache()
 

@@ -3,12 +3,15 @@ import { ScaleLoader, BeatLoader } from "react-spinners";
 import Link from "next/link";
 import { makeStyles, useTheme } from "@mui/styles";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const leftMenuStyles = makeStyles((theme) => ({
   listWrapper: {
   },
   listItem: {
-    padding: '5px 0'
+    padding: '5px 0',
+    display: 'flex',
+    justifyItems: 'center'
   },
   link: {
     color: theme.palette.primary.main,
@@ -160,6 +163,7 @@ export const SectionTitle = props => {
 };
 
 export const LeftMenuList = (props) => {
+
   const { items, locale, item } = props;
   const styles = leftMenuStyles();
   const router = useRouter();
@@ -170,11 +174,17 @@ export const LeftMenuList = (props) => {
       <List style={{ padding: 0, margin: 0 }}>
         {items.map((i) => (
           <ListItemText key={i._id} className={styles.listItem}>
-            {i.imgUrl ? (
-              <Image src={imgUrl} />
-            ) : (
-              <span className={styles.markerWrapper}>&#9679;</span>
-            )}
+            {i.imgUrl_main ?
+              <span style={{ verticalAlign: "middle", marginRight: 5 }}>
+              <Image 
+                src={`http://193.46.199.82:5000/${i.imgUrl_main}`} 
+                width="15px" 
+                height="15px" 
+                // style={{ verticalAlign: 'middle' }} 
+              /></span>  : 
+              <span className={styles.markerWrapper}>&#9679;</span>}
+              
+              
             <a href={i.link} target="_blank" className={styles.link}>
               {locale === "en" ? i.title_en : i.title_ua}
             </a>

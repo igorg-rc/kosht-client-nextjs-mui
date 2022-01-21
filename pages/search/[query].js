@@ -9,6 +9,7 @@ import Image from "next/image";
 import moment from 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/uk'
+import { useTranslation } from "next-i18next";
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -69,11 +70,14 @@ const useStyles = makeStyles(theme => ({
 export default function Query({query, posts}) {
   const styles = useStyles()
   const router = useRouter()
+  const { t } = useTranslation("common")
 
   return <>
   { (posts && posts.length > 0) 
-  ? 
-  posts.map(i => <Item style={{ border: '1px sold #000' }} key={i._id}>
+  ?
+  <> 
+  <SectionTitle title={`${t("search.searchQuery")} "${query}"`} /> 
+  {posts.map(i => <Item style={{ border: '1px sold #000' }} key={i._id}>
       <div style={{ border: '1px sold #000', padding: '20px 0' }}>
       <Typography paragraph className={styles.topBage}>
         {i.categories.map(item => (
@@ -108,9 +112,17 @@ export default function Query({query, posts}) {
       </Typography>
       {i.imgUrl && <Image src={i.imgUrl} />}
       </div>
-    </Item>) 
+    </Item>)} 
+  </>
   : 
-  <h1>No posts found on query "{query}"!</h1> }
+  <>
+    <SectionTitle 
+      title={`${t("search.searchQuery")} "${query}"`} 
+    /> 
+    <SectionTitle 
+      title={t("search.searchMessage")} 
+    />
+  </> }
 
   </>
 }

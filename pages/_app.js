@@ -7,10 +7,11 @@ import { CacheProvider } from '@emotion/react'
 import theme from '../src/theme'
 import createEmotionCache from '../src/createEmotionCache'
 import Layout from '../components/UI/Layout'
-import '../styles/index.css'
 import { appWithTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { SpinnerContent } from '../components/UI/UIUnits'
+import SimpleReactLightbox from 'simple-react-lightbox'
+import '../styles/index.css'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -47,7 +48,9 @@ const MyApp = props => {
         <Layout {...layoutProps}>
           <SpinnerContent loading={loading} locale={router.locale} />
           <div style={{ display: loading ? 'none' : 'block' }}>
-            <Component {...pageProps} />
+            <SimpleReactLightbox>
+              <Component {...pageProps} />
+            </SimpleReactLightbox>
           </div>
         </Layout>
         </ThemeProvider>

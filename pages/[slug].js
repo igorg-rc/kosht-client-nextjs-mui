@@ -1,19 +1,19 @@
 import axios from "axios"
-import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useRouter } from "next/router"
 import { Item, SectionTitle } from "../components/UI/UIUnits"
-import { makeStyles, useTheme } from "@mui/styles"
+import { makeStyles } from "@mui/styles"
 import { Typography } from "@mui/material"
 import Link from "../src/Link"
 import Image from "next/image";
+import { SRLWrapper } from "simple-react-lightbox"
 import moment from 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/uk'
 
 const API_LINK = "https://kosht-api.herokuapp.com/api/posts"
 
-const styles = makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({
   main: {
     border: '1px solif #000',
   },
@@ -22,7 +22,7 @@ const styles = makeStyles(theme => ({
     textAlign: 'left',
     fontSize: 18,
     fontWeight: 200,
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: 'Gilroy-Bold, sans-serif',
     color: theme.palette.text.primary
   },
   topBage: {
@@ -30,13 +30,13 @@ const styles = makeStyles(theme => ({
     fontWeight: 600,
     lineHeight: '150%',
     textAlign: 'left',
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: 'Gilroy-Bold, sans-serif',
     margin: '3px 0'
-    // border: '1px solid red'
   },
   categoryLink: {
     fontSize: 12,
     color: '#5669FF',
+    fontFamily: 'Gilroy-Bold, sans-serif',
     textDecoration: 'none',
     fontWeight: 600,
     '&:hover': {
@@ -72,6 +72,7 @@ const styles = makeStyles(theme => ({
 
 export default function Post({ post }) {
   const router = useRouter()
+  const styles = useStyles()
 
   return <>
     {/* <Item>
@@ -105,12 +106,14 @@ export default function Post({ post }) {
       </span>   
     </Typography>  
       <SectionTitle title={post.title} />
-      <Typography 
-        component="p" 
-        className={styles.textDescripton}
-      >{post.body}
-      </Typography>
-      {post.imgUrl && <Image src={post.imgUrl} />}
+        <div 
+          className="post-content post-content-detail" 
+          dangerouslySetInnerHTML={{__html: post.body}}
+          >
+      </div>
+      <SRLWrapper>
+        {post.imgUrl && <Image src={post.imgUrl} srl_gallery_image="true" maxWidth="100%" />}
+      </SRLWrapper>
       </div>
     </Item>
   </>

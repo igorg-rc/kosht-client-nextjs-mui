@@ -10,17 +10,17 @@ body {
   background: #F9F9F9 !important;
 }
 
-/* .post-content p img, .ql-video {
-  text-align: center !important;
-  padding-top: 5px !important;
-  max-width: 100% !important;
-  border-radius: 10px !important;
-} */
+
 /* 
 .post-content p {
   margin-top: 0 !important;
 }
-
+.post-content p img, .ql-video {
+  text-align: center !important;
+  padding-top: 5px !important;
+  max-width: 100% !important;
+  border-radius: 10px !important;
+} 
 .post-content p,
 .post-content ul li {
   border-radius: 5px !important;

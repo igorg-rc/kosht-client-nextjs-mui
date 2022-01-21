@@ -88,6 +88,8 @@ const Index = ({posts}) => {
     return <div>Loading...</div>
   }
 
+  console.log('Quantity of posts', posts.data.length)
+
   return (
     <>
     {posts ? posts.data.map(i => <Item style={{ border: '1px sold #000' }} key={i._id}>
@@ -99,7 +101,7 @@ const Index = ({posts}) => {
             href={`/category/${item.slug}`} 
             className={styles.categoryLink}
           >
-            <span style={{ marginRight: 3 }}>
+            <span className="category-badge">
               {router.locale === "uk" ? item.title_ua :  item.title_en}
             </span>
           </Link>
@@ -134,7 +136,16 @@ const Index = ({posts}) => {
 export default Index
 
 export async function getStaticProps({ locale }) {
-  const LOCAL_API_LINK = "https://kosht-api.herokuapp.com/api"
+  // const LOCAL_API_LINK = "https://kosht-api.herokuapp.com/api"
+  // const PROD_API_LINK = "http:localhost:5000/api"
+  // const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
+  // const fetchedContacts = await axios.get('https://kosht-api.herokuapp.com/api/contacts')
+  // const fetchedCategories = await axios.get('https://kosht-api.herokuapp.com/api/categories')
+  // const posts = fetchedPosts.data
+  // const categories = fetchedCategories.data
+  // const contacts = fetchedContacts.data
+
+  const LOCAL_API_LINK = "http://193.46.199.82:5000/api"
   const PROD_API_LINK = "http:localhost:5000/api"
   const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
   const fetchedContacts = await axios.get('https://kosht-api.herokuapp.com/api/contacts')

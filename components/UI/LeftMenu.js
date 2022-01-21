@@ -42,7 +42,6 @@ export default function LeftMenu() {
   if (!tags) return null
   if (!contacts) return null
 
-
   return <>
     <Item>
       <LeftMenuList 
@@ -73,7 +72,9 @@ export default function LeftMenu() {
       /> 
     </Item>
     <Item>
-      <LangSwitcher locales={locales} />
+      <LangSwitcher 
+        locales={locales} 
+      />
     </Item>
   </>
 }

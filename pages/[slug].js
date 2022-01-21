@@ -91,7 +91,7 @@ export default function Post({ post }) {
             href={`/category/${item.slug}`} 
             className={styles.categoryLink}
           >
-            <span style={{ marginRight: 3 }}>
+            <span className="category-badge">
               {router.locale === "uk" ? item.title_ua :  item.title_en}
             </span>
           </Link>

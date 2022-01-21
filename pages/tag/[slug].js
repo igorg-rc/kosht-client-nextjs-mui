@@ -9,8 +9,9 @@ import moment from 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/uk'
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-// import { PostGeneralView } from "../../components/Post/Post"
+import { PostGeneralView } from "../../components/Post/Post"
 
+// const API_LINK = "http://193.46.199.82:5000/api/"
 const API_LINK = "https://kosht-api.herokuapp.com/api"
 
 const useStyles = makeStyles(theme => ({
@@ -85,7 +86,7 @@ export default function PostsByTags({posts}) {
             href={`/category/${item.slug}`} 
             className={styles.categoryLink}
           >
-            <span style={{ marginRight: 3 }}>
+            <span className="category-badge">
               {router.locale === "uk" ? item.title_ua :  item.title_en}
             </span>
           </Link>

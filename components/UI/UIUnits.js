@@ -172,12 +172,11 @@ export const LeftMenuList = (props) => {
   return !item ? (
     <div className={styles.listWrapper}>
       <List style={{ padding: 0, margin: 0 }}>
-        {items.map((i) => (
+        {items.map(i => (
           <ListItemText key={i._id} className={styles.listItem}>
-            {i.imgUrl_main ?
-              <span style={{ verticalAlign: "middle", marginRight: 5 }}>
+            {(i.imgUrl) ? <span style={{ verticalAlign: "middle", marginRight: 5 }}>
               <Image 
-                src={`http://193.46.199.82:5000/${i.imgUrl_main}`} 
+                src={`http://193.46.199.82:5000/${i.imgUrl}`}
                 width="15px" 
                 height="15px" 
                 // style={{ verticalAlign: 'middle' }} 
@@ -216,8 +215,11 @@ export const LeftMenuList = (props) => {
                 #
               </span>
             )}
-            {item === "category" && i.imgUrl && <Image src={imgUrl} />}
-            {item === "category" && !i.imgUrl && (
+            {item === "category" && (i.imgUrl_main && i.imgUrl_hover) ? <span style={{ verticalAlign: "middle", marginRight: 5  }}>
+                <Image src={`http://193.46.199.82:5000/${i.imgUrl_main}`} height="20px" width="20px" />
+              </span> : null
+            }
+            {item === "category" && (!i.imgUrl_hover && !i.imgUrl_main) && (
               <span
                 style={{
                   color:

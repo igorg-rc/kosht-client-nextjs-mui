@@ -1,6 +1,4 @@
-import axios from "axios"
 import Link from "../../src/Link"
-import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { Item, SectionTitle } from "../../components/UI/UIUnits"
 import { useTheme, makeStyles } from "@mui/styles"
 import { Typography } from "@mui/material"

@@ -49,11 +49,7 @@ export default function LeftMenu() {
         items={categories} 
         locale={locale} 
         item="category"
-<<<<<<< HEAD
-        />  
-=======
         /> 
->>>>>>> bee4948d5c25bb75a8c07571157cf7d7a0fadd61
       <LeftMenuList 
         items={tags} 
         locale={locale} 
@@ -74,7 +70,7 @@ export default function LeftMenu() {
         subscribe={t('leftMenu.subscribeLink')} 
         onChange={e => setUserInput(e.target.value)}
         onSubmit={onSubscribe} 
-      />
+      /> 
     </Item>
     <Item>
       <LangSwitcher locales={locales} />

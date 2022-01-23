@@ -120,7 +120,7 @@ export async function getStaticPaths({locales})  {
   const categories = res.data
 
   const paths = categories.map(category => (
-    { params: { slug: category.slug }, locale: "uk" },
+    { params: { slug: category.slug } },
     { params: { slug: category.slug }, locale: "en" }
   ))
   

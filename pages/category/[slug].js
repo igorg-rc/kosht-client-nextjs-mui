@@ -115,7 +115,7 @@ export default function PostsByCategories({posts}) {
   )
 }
 
-export async function getStaticPaths()  {
+export async function getStaticPaths({locales})  {
   const res = await axios.get(`${API_LINK}/categories`)
   const categories = res.data
 

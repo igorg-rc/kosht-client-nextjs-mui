@@ -120,11 +120,15 @@ export default function PostsByTags({posts}) {
 export async function getStaticPaths()  {
   const res = await axios.get(`${API_LINK}/tags`)
   const categories = res.data
-  const paths = categories.map(category => ({ params: { slug: category.slug } }))
+  
+  const paths = categories.map(category => (
+    { params: { slug: category.slug }, locale: "uk" },
+    { params: { slug: category.slug }, locale: "en" }
+  ))
   
   return {
-    fallback: 'blocking',
-    paths
+    paths,
+    fallback: 'blocking'
   }
 }
 

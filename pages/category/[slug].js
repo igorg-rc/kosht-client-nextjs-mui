@@ -84,7 +84,7 @@ export default function PostsByCategories({posts}) {
             href={`/category/${item.slug}`} 
             className={styles.categoryLink}
           >
-            <span style={{ marginRight: 3 }}>
+            <span className="category-badge">
               {router.locale === "uk" ? item.title_ua :  item.title_en}
             </span>
           </Link>
@@ -120,7 +120,8 @@ export async function getStaticPaths()  {
   const categories = res.data
 
   const paths = categories.map(category => (
-    { params: { slug: category.slug } }
+    { params: { slug: category.slug }, locale: "uk" },
+    { params: { slug: category.slug }, locale: "en" }
   ))
   
   return {

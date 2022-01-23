@@ -121,12 +121,13 @@ export default function Post({ post }) {
 }
 
 
-export async function getStaticPaths() {
+export async function getStaticPaths({locales}) {
   const res = await axios.get(API_LINK)
   const posts = res.data
 
   const paths = posts.data.map(post => (
-    { params: { slug: post.slug } }
+    { params: { slug: post.slug }, locale: "uk" },
+    { params: { slug: post.slug }, locale: "en" }
   ))
 
   return {

@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function PostsByTags({posts}) {
+export default function PostsByTags({slug, posts}) {
   const theme = useTheme()
   const styles = useStyles()
   const router = useRouter()
@@ -134,10 +134,15 @@ export async function getStaticPaths({locales})  {
 
 
 export async function getStaticProps(context) {
+  const slug = context.params.slug
   const postsList = await axios.get(`${API_LINK}/posts/tags/${context.params.slug}`)
   const posts = postsList.data
 
   return {
-    props: { posts, ...await serverSideTranslations(context.locale, ["common"]) }
+    props: { 
+      slug,
+      posts, 
+    ...await serverSideTranslations(context.locale, ["common"]) 
+    }
   }
 }

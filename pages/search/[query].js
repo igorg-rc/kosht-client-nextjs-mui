@@ -133,5 +133,11 @@ export async function getServerSideProps(context) {
   const postsList = await axios.get(`${API_LINK}/${encodeURI(query)}`)
   const posts = postsList.data.data
 
-  return { props: { query, posts, ...await serverSideTranslations(context.locale, ["common"]) } }
+  return { 
+    props: { 
+      query, 
+      posts, 
+      ...await serverSideTranslations(context.locale, ["common"]) 
+    } 
+  }
 }

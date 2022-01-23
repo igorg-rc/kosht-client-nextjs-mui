@@ -69,7 +69,7 @@ const useStyles = makeStyles(theme => ({
 const API_LINK = "https://kosht-api.herokuapp.com/api"
 // const API_LINK = "http://193.46.199.82:5000/api/"
 
-export default function PostsByCategories({posts}) {
+export default function PostsByCategories({slug, posts}) {
   const theme = useTheme()
   const styles = useStyles()
   const router = useRouter()
@@ -136,6 +136,10 @@ export async function getStaticProps(context) {
   const posts = postsList.data
 
   return {
-    props: { posts, ...await serverSideTranslations(context.locale, ["common"]) }
+    props: { 
+      slug,
+      posts, 
+      ...await serverSideTranslations(context.locale, ["common"]) 
+    }
   }
 }

@@ -11,6 +11,10 @@ import 'moment/locale/en-gb'
 import 'moment/locale/uk'
 import { useTranslation } from "next-i18next";
 
+const API_LINK ="http://193.46.199.82:5000/api/search"
+// const API_LINK ="https://kosht-api.herokuapp.com/api/search"
+
+
 const useStyles = makeStyles(theme => ({
   main: {
     border: '1px solif #000',
@@ -129,7 +133,6 @@ export default function Query({query, posts}) {
 
 export async function getServerSideProps(context) {
   const query = context.params.query
-  const API_LINK ="https://kosht-api.herokuapp.com/api/search"
   const postsList = await axios.get(`${API_LINK}/${encodeURI(query)}`)
   const posts = postsList.data.data
 

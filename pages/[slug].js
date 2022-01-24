@@ -11,6 +11,7 @@ import moment from 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/uk'
 
+// const API_LINK = "http://193.46.199.82:5000/api/posts"
 const API_LINK = "https://kosht-api.herokuapp.com/api/posts"
 
 const useStyles = makeStyles(theme => ({

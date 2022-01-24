@@ -107,7 +107,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   noBorder: {
-    border: 'none'
+    border: '1px solid #F9F9F9'
   },
   endAdornment: {
     marginRight: 0,

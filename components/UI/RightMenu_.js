@@ -154,8 +154,8 @@ export const RightMenu = () => {
   const styles = useStyles()
   const [currencies, setCurrencies] = useState([])
   const greeting = locale === "en" ? "Hello World!" : "Привіт, Світ!"
-  // const BASE_API_PATH = "https://kosht-api.herokuapp.com/api"
-  const BASE_API_PATH = "http://193.46.199.82:5000/api"
+  const BASE_API_PATH = "https://kosht-api.herokuapp.com/api"
+  // const BASE_API_PATH = "http://193.46.199.82:5000/api"
   const EDITOR_CHOICE_SLUG = "editor-choice"
   const EDITOR_CHOICE_URL = `${BASE_API_PATH}/lists/slug/${EDITOR_CHOICE_SLUG}`
   const fetcher = url => axios.get(url).then(res => res.data)
@@ -167,7 +167,7 @@ export const RightMenu = () => {
     setCurrencies(currenciesGeneralList.banks)
   }, [])
 
-  if (postsError) return <SectionTitle title="Error: failed to load posts" />
+  // if (postsError) return <SectionTitle title="Error: failed to load posts" />
   if (!posts) return null
 
 

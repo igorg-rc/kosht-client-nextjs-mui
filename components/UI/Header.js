@@ -201,8 +201,8 @@ export const Header = () => {
   }
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" elevation={0} style={{ background: "#f9f9f9" }}>
+    <Box>
+      <AppBar position="static" elevation={0} style={{ background: "#f9f9f9", }}>
         <Toolbar>
           <Grid container>
             <Grid item xs={3}>

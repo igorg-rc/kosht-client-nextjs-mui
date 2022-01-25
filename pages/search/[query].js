@@ -17,7 +17,7 @@ const API_LINK ="http://193.46.199.82:5000/api/search"
 
 const useStyles = makeStyles(theme => ({
   main: {
-    border: '1px solif #000',
+    border: '1px solid #000',
   },
   linkText:{
     textAlign: 'left',

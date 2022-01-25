@@ -19,11 +19,18 @@ body {
   margin: 3px;
 }
 
+.content-row {
+  border-bottom: 1px solid #E9E9E9;
+}
+
+.content-row:last-child  {
+  border-bottom: none !important;
+}
 
 .post-content p {
   margin-top: 0 !important;
 }
-.post-content p img, .ql-video {
+.post-content p img, .ql-video, .post-content iframe {
   text-align: center !important;
   padding-top: 5px !important;
   max-width: 100% !important;

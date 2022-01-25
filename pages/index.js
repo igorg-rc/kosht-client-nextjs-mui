@@ -92,7 +92,7 @@ const Index = ({posts}) => {
 
   return (
     <>
-    {posts ? posts.data.map(i => <Item style={{ border: '1px sold #000' }} key={i._id}>
+    {posts ? posts.data.map(i =>  <div key={i._id} style={{ border: '1px sold #000', marginBottom: 20 }}><Item >
       <div style={{ border: '1px sold #000', padding: '20px 0' }}>
       <Typography paragraph className={styles.topBage}>
         {i.categories.map(item => (
@@ -127,7 +127,8 @@ const Index = ({posts}) => {
       </Typography>
       {i.imgUrl && <Image src={i.imgUrl} />}
       </div>
-    </Item>) : "postList.noPosts"} 
+    </Item>
+    </div>) : "postList.noPosts"} 
     </>
   );
 }

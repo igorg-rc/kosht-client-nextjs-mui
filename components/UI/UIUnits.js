@@ -254,6 +254,7 @@ export const LeftMenuList = (props) => {
 export const Item = ({ children }) => (
   <div
     style={{
+      background: '#fff',
       marginBottom: 10,
       borderRadius: 6,
       boxShadow: "0px 8px 25px rgba(83, 89, 144, 0.07)",

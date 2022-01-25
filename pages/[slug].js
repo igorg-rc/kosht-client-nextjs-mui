@@ -17,6 +17,7 @@ const API_LINK = "https://kosht-api.herokuapp.com/api/posts"
 const useStyles = makeStyles(theme => ({
   main: {
     border: '1px solif #000',
+    // paddingBottom: 20
   },
   
   linkText:{

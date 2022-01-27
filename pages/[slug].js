@@ -2,14 +2,16 @@ import axios from "axios"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useRouter } from "next/router"
 import { Item, SectionTitle } from "../components/UI/UIUnits"
+import { PostSeparateListIndex } from "../components/PostList/PostSeparateListIndex"
 import { makeStyles } from "@mui/styles"
 import { Typography } from "@mui/material"
 import Link from "../src/Link"
-import Image from "next/image";
+import Image from "next/image"
 import { SRLWrapper } from "simple-react-lightbox"
 import moment from 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/uk'
+import { useEffect, useState } from "react"
 
 // const API_LINK = "http://193.46.199.82:5000/api/posts"
 const API_LINK = "https://kosht-api.herokuapp.com/api/posts"
@@ -73,17 +75,28 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function Post({ post }) {
+  // const READMORE_LINK = 'https://kosht-api.herokuapp.com/api/posts/readmore'
+  const READMORE_LINK = 'https://kosht-api.herokuapp.com/api/posts/readmore'
   const router = useRouter()
   const styles = useStyles()
+  const [items, setItems] = useState([])
+  const [moreItems, setMoreItems] = useState([])
+  const [showMore, setShowMore] = useState(true)
+  const [expanded, setExpanded] = useState(true)
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      const res = await axios.get(`${READMORE_LINK}/${router.query.slug}`)
+      const fetchedItems = res.data
+      setItems(fetchedItems.slice(0, 5))
+      setMoreItems(fetchedItems.slice(0, 10))
+    }
+    fetchItems()
+  }, [])
+
+  console.log(items)
 
   return <>
-    {/* <Item>
-      <div style={{ padding: '0 20px' }}>
-      <h2>{slug}</h2>
-      <h4>{post.title}</h4>
-      <p style={{ textAlign: 'justify' }}>{post.body}</p> 
-      </div>
-    </Item> */}
     <Item style={{ border: '1px sold #000' }} key={post._id}>
       <div style={{ border: '1px sold #000', padding: '20px 0' }}>
       <Typography paragraph className={styles.topBage}>
@@ -118,6 +131,15 @@ export default function Post({ post }) {
       </SRLWrapper>
       </div>
     </Item>
+
+    <PostSeparateListIndex
+      label={router.locale === "uk" ? "Читайте також" : "Read more"}
+      items={showMore ? items : moreItems}
+      showMore={showMore}
+      expanded={expanded}
+      toggleExpanded={() => setExpanded(!expanded)}
+      toggleShowMore={() => setShowMore(!showMore)} 
+    />
   </>
   
 }

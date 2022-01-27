@@ -1,11 +1,11 @@
-
-import * as React from 'react';
-import { useTheme, makeStyles } from '@mui/styles';
+import {useState, useEffect} from 'react';
+import { makeStyles } from '@mui/styles';
 import axios from 'axios';
 import Link from '../src/Link';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { PostSeparateListIndex } from '../components/PostList/PostSeparateListIndex';
 import { useTranslation } from 'next-i18next';
 import { SectionTitle } from '../components/UI/UIUnits';
 import { Item } from '../components/UI/UIUnits';
@@ -79,19 +79,38 @@ const loadData = async locale => {
 const Index = ({posts}) => {
   const { locale } = useRouter()
   const router = useRouter()
-  const { slug } = router.query
   const {data} = useSWR([locale, "hello"], loadData)
   const styles = useStyles()
   const { t } = useTranslation("common")
+  const [items, setItems] = useState([])
+  const [moreItems, setMoreItems] = useState([])
+  const [showMore, setShowMore] = useState(true)
+  const [expanded, setExpanded] = useState(true)
 
-  if (router.isFallback) {
-    return <div>Loading...</div>
-  }
+  useEffect(() => {
+    const getItems = async () => {
+      const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
+      const fetchedItems = res.data.posts
+      setItems(fetchedItems.slice(0, 5))
+      setMoreItems(fetchedItems.slice(0, 10))
+      // setMoreItems(fetchedItems)
+    }
+    getItems()
+  }, [])
 
-  console.log('Quantity of posts', posts.data.length)
+  if (router.isFallback) return <div>Loading...</div>
 
   return (
     <>
+    <PostSeparateListIndex
+      label={router.locale === "uk" ? "Головне" : "Main news"}
+      items={showMore ? items : moreItems}
+      showMore={showMore}
+      expanded={expanded}
+      toggleExpanded={() => setExpanded(!expanded)}
+      toggleShowMore={() => setShowMore(!showMore)} 
+    />
+
     {posts ? posts.data.map(i =>  <div key={i._id} style={{ border: '1px sold #000', marginBottom: 20 }}><Item >
       <div style={{ border: '1px sold #000', padding: '20px 0' }}>
       <Typography paragraph className={styles.topBage}>
@@ -133,19 +152,9 @@ const Index = ({posts}) => {
   );
 }
 
-
 export default Index
 
 export async function getStaticProps({ locale }) {
-  // const LOCAL_API_LINK = "https://kosht-api.herokuapp.com/api"
-  // const PROD_API_LINK = "http:localhost:5000/api"
-  // const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
-  // const fetchedContacts = await axios.get('https://kosht-api.herokuapp.com/api/contacts')
-  // const fetchedCategories = await axios.get('https://kosht-api.herokuapp.com/api/categories')
-  // const posts = fetchedPosts.data
-  // const categories = fetchedCategories.data
-  // const contacts = fetchedContacts.data
-
   const LOCAL_API_LINK = "http://193.46.199.82:5000/api"
   const PROD_API_LINK = "http:localhost:5000/api"
   const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
@@ -156,6 +165,11 @@ export async function getStaticProps({ locale }) {
   const contacts = fetchedContacts.data
 
   return {
-    props: {posts, contacts, categories, ...await serverSideTranslations(locale, ['common']) } 
+    props: {
+      posts, 
+      contacts, 
+      categories, 
+      ...await serverSideTranslations(locale, ['common']) 
+    } 
   }
 }

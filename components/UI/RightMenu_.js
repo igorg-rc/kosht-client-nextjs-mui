@@ -265,13 +265,13 @@ export const RightMenu = () => {
 
   return <>
     <PostSeparateListIndex 
-      label={"Курс валют на сьогодні"}
+      label={locale === "uk" ? "Курс валют на сьогодні" : "Exchange rate for today"}
       items={currencies}
       currenciesList={currenciesList}
     />
 
     <PostSeparateListIndex 
-      label={"Вибір редакції"}
+      label={locale === "uk" ? "Вибір редакції" : "Editor choice"}
       items={posts.posts}
     />
   </>

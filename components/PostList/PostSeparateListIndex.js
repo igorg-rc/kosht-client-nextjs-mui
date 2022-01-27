@@ -249,7 +249,7 @@ export const PostSeparateListIndex = props => {
         <div 
           className={styles.linkHolder} 
           style={{ display: !labelCurrenciesRate ? 'none' : 'inline-block'}}
-          onClick={() => router.push('/currencies/25.07.21')}
+          onClick={() => router.replace('/currencies')}
         ><span>{t("separateList.allCurrenciesLink")}</span>
         </div>
       </div>

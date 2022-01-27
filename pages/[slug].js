@@ -11,10 +11,11 @@ import { SRLWrapper } from "simple-react-lightbox"
 import moment from 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/uk'
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 // const API_LINK = "http://193.46.199.82:5000/api/posts"
 const API_LINK = "https://kosht-api.herokuapp.com/api/posts"
+const READMORE_LINK = 'https://kosht-api.herokuapp.com/api/posts/readmore'
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -74,27 +75,11 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function Post({ post }) {
-  // const READMORE_LINK = 'https://kosht-api.herokuapp.com/api/posts/readmore'
-  const READMORE_LINK = 'https://kosht-api.herokuapp.com/api/posts/readmore'
+export default function Post({ post, fetchedPosts }) {
   const router = useRouter()
   const styles = useStyles()
-  const [items, setItems] = useState([])
-  const [moreItems, setMoreItems] = useState([])
   const [showMore, setShowMore] = useState(true)
   const [expanded, setExpanded] = useState(true)
-
-  useEffect(() => {
-    const fetchItems = async () => {
-      const res = await axios.get(`${READMORE_LINK}/${router.query.slug}`)
-      const fetchedItems = res.data
-      setItems(fetchedItems.slice(0, 5))
-      setMoreItems(fetchedItems.slice(0, 10))
-    }
-    fetchItems()
-  }, [])
-
-  console.log(items)
 
   return <>
     <Item style={{ border: '1px sold #000' }} key={post._id}>
@@ -112,7 +97,7 @@ export default function Post({ post }) {
           </Link>
         ))}
       <span className={styles.date}>
-        {new Date(Date.now()).getDate() - new Date(post.createdAt).getDate()  < 30 ?
+        {new Date(Date.now()).getDate() - new Date(post.createdAt).getDate() < 30 ?
           (router.locale === "uk" ? 
             moment.utc(post.createdAt).local().locale('uk').fromNow() : 
             moment.utc(post.createdAt).local().locale('en-gb').fromNow()
@@ -134,7 +119,7 @@ export default function Post({ post }) {
 
     <PostSeparateListIndex
       label={router.locale === "uk" ? "Читайте також" : "Read more"}
-      items={showMore ? items : moreItems}
+      items={showMore ? fetchedPosts.slice(0, 5) : fetchedPosts.slice(0, 10)}
       showMore={showMore}
       expanded={expanded}
       toggleExpanded={() => setExpanded(!expanded)}
@@ -161,12 +146,15 @@ export async function getStaticPaths({locales}) {
 }
 
 export async function getStaticProps(context) {
-  const res = await axios.get(`${API_LINK}/slug/${context.params.slug}`)
-  const post = res.data
+  const resPost = await axios.get(`${API_LINK}/slug/${context.params.slug}`)
+  const resItems = await axios.get(`${READMORE_LINK}/${context.params.slug}`)
+  const post = resPost.data
+  const fetchedPosts = resItems.data
 
   return { 
     props: { 
       params: context.params,
+      fetchedPosts,
       post, 
       ...await serverSideTranslations(context.locale, ["common"]) 
     } 

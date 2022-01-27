@@ -166,8 +166,7 @@ export const PostSeparateListIndex = props => {
         </div>
         <div className={styles.titleLinkKeeper}>
           <span className={styles.linkToPostHolder}>
-            <Link href={`/${item.slug}`}>
-              <span className={styles.titleBadge}>{item.title}</span>
+            <Link className={styles.titleBadge} href={`/${item.slug}`}>{item.title}
             </Link>
           </span>
         </div>

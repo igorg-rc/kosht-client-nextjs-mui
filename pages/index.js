@@ -145,25 +145,19 @@ const Index = ({posts, listItems}) => {
 
 export default Index
 
-export async function getServerSideProps({ locale }) {
+export async function getServerSideProps(context) {
   // const LOCAL_API_LINK = "http://193.46.199.82:5000/api"
   // const PROD_API_LINK = "http:localhost:5000/api"
   const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
-  const fetchedContacts = await axios.get('https://kosht-api.herokuapp.com/api/contacts')
-  const fetchedCategories = await axios.get('https://kosht-api.herokuapp.com/api/categories')
   const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
   const listItems = res.data.posts
   const posts = fetchedPosts.data
-  const categories = fetchedCategories.data
-  const contacts = fetchedContacts.data
 
   return {
     props: {
       posts, 
       listItems,
-      contacts, 
-      categories, 
-      ...await serverSideTranslations(locale, ['common']) 
+      ...await serverSideTranslations(context.locale, ['common']) 
     } 
   }
 }

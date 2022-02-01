@@ -101,7 +101,7 @@ const Index = ({posts, listItems}) => {
         toggleShowMore={() => setShowMore(!showMore)} 
       />
 
-      {posts ? posts.data.map(i =>  <div key={i._id} style={{ border: '1px sold #000', marginBottom: 20 }}>
+      {posts ? posts.map(i =>  <div key={i._id} style={{ border: '1px sold #000', marginBottom: 20 }}>
         <Item >
         <div style={{ border: '1px sold #000', padding: '20px 0' }}>
           <Typography paragraph className={styles.topBage}>
@@ -150,8 +150,8 @@ export async function getServerSideProps(context) {
   // const PROD_API_LINK = "http:localhost:5000/api"
   const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
   const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
+  const posts = fetchedPosts.data.data
   const listItems = res.data.posts
-  const posts = fetchedPosts.data
 
   return {
     props: {

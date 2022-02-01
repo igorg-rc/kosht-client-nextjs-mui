@@ -10,8 +10,8 @@ import { appWithTranslation, useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { SpinnerContent } from '../components/UI/UIUnits'
 import SimpleReactLightbox from 'simple-react-lightbox'
-import Head from 'next/head'
 import '../styles/index.css'
+// import Head from 'next/head'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -40,9 +40,9 @@ const MyApp = props => {
 
   return (
     <CacheProvider value={emotionCache}>
-      <Head>
+      {/* <Head>
         <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title>
-      </Head>
+      </Head> */}
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Layout {...layoutProps}>

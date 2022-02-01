@@ -84,14 +84,14 @@ export default function PostsByCategories(props) {
 
   return (
     <>
-    {/* <Head>
+    <Head>
       <title>
         {t("head.mainTitle")} | {t("head.postsByCategory")} 
         "{router.locale === "uk" ? category.title_ua : category.title_en}"
       </title>
       <meta name="keywords" content={selectedCategory} />
       <meta name="description" content={`${posts.map(i => i.title)}`} />
-    </Head> */}
+    </Head>
     <div>
     {posts?.map(i => <Item style={{ border: '1px sold #000' }} key={i._id}>
       <div style={{ border: '1px sold #000', padding: '20px 0' }}>

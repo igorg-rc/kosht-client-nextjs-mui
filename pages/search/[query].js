@@ -79,11 +79,11 @@ export default function Query({query, posts}) {
   const postTitles = posts.map(i => i.title)
 
   return <>
-  {/* <Head>
+  <Head>
     <title>{t("head.mainTitle")} | {t("head.searchByQuery")} "{query}"</title>
     <meta name="description" content={postTitles} />
     <meta name="keywords" content={`${t("head.mainTitle")}, ${query}, ${t("head.search")}`} />
-  </Head> */}
+  </Head>
   { (posts && posts.length > 0) 
   ?
   <> 

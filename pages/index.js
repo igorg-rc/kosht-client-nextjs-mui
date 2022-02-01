@@ -145,7 +145,7 @@ const Index = ({posts, listItems}) => {
 
 export default Index
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   // const LOCAL_API_LINK = "http://193.46.199.82:5000/api"
   // const PROD_API_LINK = "http:localhost:5000/api"
   const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  

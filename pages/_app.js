@@ -40,9 +40,9 @@ const MyApp = props => {
 
   return (
     <CacheProvider value={emotionCache}>
-      <Head>
+      {/* <Head>
         <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title>
-      </Head>
+      </Head> */}
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Layout {...layoutProps}>

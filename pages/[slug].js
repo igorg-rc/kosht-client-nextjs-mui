@@ -131,14 +131,14 @@ export default function Post({ post, fetchedPosts }) {
       </div>
     </Item>
 
-    <PostSeparateListIndex
+    {/* <PostSeparateListIndex
       label={router.locale === "uk" ? "Читайте також" : "Read more"}
       items={showMore ? fetchedPosts.slice(0, 5) : fetchedPosts.slice(0, 10)}
       showMore={showMore}
       expanded={expanded}
       toggleExpanded={() => setExpanded(!expanded)}
       toggleShowMore={() => setShowMore(!showMore)} 
-    />
+    /> */}
   </>
   
 }

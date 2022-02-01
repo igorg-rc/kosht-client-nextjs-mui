@@ -6,20 +6,22 @@ import { CacheProvider } from '@emotion/react'
 import theme from '../src/theme'
 import createEmotionCache from '../src/createEmotionCache'
 import Layout from '../components/UI/Layout'
-import { appWithTranslation } from 'next-i18next'
+import { appWithTranslation, useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { SpinnerContent } from '../components/UI/UIUnits'
 import SimpleReactLightbox from 'simple-react-lightbox'
+import Head from 'next/head'
 import '../styles/index.css'
 
 const clientSideEmotionCache = createEmotionCache()
 
 const MyApp = props => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps, layoutProps } = props
-  const titleUA = "Кошт | Говоримо про особисті фінанси | "
-  const titleEN = "Kosht | We talk about personal finances | "
   const router = useRouter()
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation()
+  // const titleUA = "Кошт | Говоримо про особисті фінанси | "
+  // const titleEN = "Kosht | We talk about personal finances | "
 
   useEffect(() => {
     const handleLoadingStart =  url => url !== router.pathname ? setLoading(true) : setLoading(false)
@@ -38,6 +40,9 @@ const MyApp = props => {
 
   return (
     <CacheProvider value={emotionCache}>
+      <Head>
+        <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title>
+      </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Layout {...layoutProps}>

@@ -11,7 +11,6 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {/* PWA primary color */}
-          <title>Kosht | We talk about personal finances</title>
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
           <link href="http://fonts.cdnfonts.com/css/gilroy-bold" rel="stylesheet" />

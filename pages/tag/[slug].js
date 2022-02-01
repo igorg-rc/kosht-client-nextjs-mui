@@ -1,7 +1,7 @@
 import axios from "axios"
 import Link from "../../src/Link"
 import { Item, SectionTitle } from "../../components/UI/UIUnits"
-import { useTheme, makeStyles } from "@mui/styles"
+import { makeStyles } from "@mui/styles"
 import { Typography } from "@mui/material"
 import Image from "next/image"
 import { useRouter } from "next/router"
@@ -9,7 +9,9 @@ import moment from 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/uk'
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { PostGeneralView } from "../../components/Post/Post"
+import Head from "next/head"
+import { useTranslation } from "next-i18next"
+// import { PostGeneralView } from "../../components/Post/Post"
 
 // const API_LINK = "http://193.46.199.82:5000/api/"
 const API_LINK = "https://kosht-api.herokuapp.com/api"
@@ -71,12 +73,23 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function PostsByTags({slug, posts}) {
-  const theme = useTheme()
+export default function PostsByTags({posts, tag, tags}) {
   const styles = useStyles()
   const router = useRouter()
+  const { t } = useTranslation("common")
+  const selectedTag = router.locale === "uk" ? tag.title_ua : tag.title_en
+  const selectedTags = tags.map(i => router.locale === "uk" ? i.title_ua : i.title_en)
+
+  console.log(tags)
 
   return <>
+    <Head>
+      <title>
+        {t("head.mainTitle")} | {t("head.postsByTag")} "{selectedTag}"
+      </title>
+      <meta name="keywords" content={selectedTags} />
+      <meta name="description" content={`${posts.map(i => i.title)}`} />
+    </Head>
     {posts?.map(i => <Item style={{ border: '1px sold #000' }} key={i._id}>
       <div style={{ border: '1px sold #000', padding: '20px 0' }}>
       <Typography paragraph className={styles.topBage}>
@@ -136,11 +149,16 @@ export async function getStaticPaths({locales})  {
 export async function getStaticProps(context) {
   const slug = context.params.slug
   const postsList = await axios.get(`${API_LINK}/posts/tags/${context.params.slug}`)
+  const resTag = await axios.get(`${API_LINK}/tags/slug/${context.params.slug}`)
+  const resTags = await axios.get(`${API_LINK}/tags`)
+  const tags = resTags.data
+  const tag = resTag.data[0]
   const posts = postsList.data
 
   return {
     props: { 
-      slug,
+      tag,
+      tags,
       posts, 
     ...await serverSideTranslations(context.locale, ["common"]) 
     }

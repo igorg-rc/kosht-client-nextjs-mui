@@ -129,10 +129,11 @@ export const PostSeparateListIndex = props => {
   const {t} = useTranslation()
   const router = useRouter()
   const isSM = useMediaQuery(theme.breakpoints.down('sm'))
-  const labelOfEditorChoice = label === "Вибір редакції" || label === "Editor choice"
   const labelMainNews = label === "Головне" || label === "Main news"
   const labelNewsList = label === "Новини" || label === "News"
   const labelReadMore = label === "Читайте також" || label === "Read more"
+  const labelAllNews  = label === "Новини" || label === "News"
+  const labelOfEditorChoice = label === "Вибір редакції" || label === "Editor choice"
   const labelCurrenciesRate = label === "Курс валют на сьогодні" || label === "Exchange rate for today"
 
   const rows = <div className={styles.content}>
@@ -166,7 +167,8 @@ export const PostSeparateListIndex = props => {
         </div>
         <div className={styles.titleLinkKeeper}>
           <span className={styles.linkToPostHolder}>
-            <Link className={styles.titleBadge} href={`/${item.slug}`}>{item.title}
+            <Link href={`/${item.slug}`}>
+              <span className={styles.titleBadge}>{item.title}</span>
             </Link>
           </span>
         </div>
@@ -205,7 +207,7 @@ export const PostSeparateListIndex = props => {
           <ExpandMore 
             className={styles.icon} 
             style={{ 
-              display: (labelOfEditorChoice || labelCurrenciesRate) && 'none',
+              display: (labelOfEditorChoice || labelCurrenciesRate || labelAllNews) && 'none',
               marginRight: 0
             }} 
           />
@@ -250,6 +252,12 @@ export const PostSeparateListIndex = props => {
           style={{ display: !labelCurrenciesRate ? 'none' : 'inline-block'}}
           onClick={() => router.replace('/currencies')}
         ><span>{t("separateList.allCurrenciesLink")}</span>
+        </div>
+        <div 
+          className={styles.linkHolder} 
+          style={{ display: !labelAllNews ? 'none' : 'inline-block'}}
+          onClick={() => router.replace('/')}
+        ><span>{t("separateList.titleAllNews")}</span>
         </div>
       </div>
     </Accordion>

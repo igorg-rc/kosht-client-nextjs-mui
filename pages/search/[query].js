@@ -10,6 +10,7 @@ import moment from 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/uk'
 import { useTranslation } from "next-i18next";
+import Head from "next/head";
 
 const API_LINK ="http://193.46.199.82:5000/api/search"
 // const API_LINK ="https://kosht-api.herokuapp.com/api/search"
@@ -75,8 +76,14 @@ export default function Query({query, posts}) {
   const styles = useStyles()
   const router = useRouter()
   const { t } = useTranslation("common")
+  const postTitles = posts.map(i => i.title)
 
   return <>
+  <Head>
+    <title>{t("head.mainTitle")} | {t("head.searchByQuery")} "{query}"</title>
+    <meta title="description" content={postTitles} />
+    <meta title="keywords" content={`${t("head.mainTitle")}, ${query}, ${t("head.search")}`} />
+  </Head>
   { (posts && posts.length > 0) 
   ?
   <> 

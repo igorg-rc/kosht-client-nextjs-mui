@@ -9,9 +9,11 @@ import Link from "../src/Link"
 import Image from "next/image"
 import { SRLWrapper } from "simple-react-lightbox"
 import moment from 'moment'
+import Head from "next/head"
 import 'moment/locale/en-gb'
 import 'moment/locale/uk'
 import { useState } from "react"
+import { useTranslation } from "next-i18next"
 
 // const API_LINK = "http://193.46.199.82:5000/api/posts"
 const API_LINK = "https://kosht-api.herokuapp.com/api/posts"
@@ -76,12 +78,24 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function Post({ post, fetchedPosts }) {
+  const { t } = useTranslation("common")
   const router = useRouter()
   const styles = useStyles()
   const [showMore, setShowMore] = useState(true)
   const [expanded, setExpanded] = useState(true)
 
+  const tags = post?.tags.map(tag => (
+    router.locale === "ua" ? tag.title_ua : tag.title_en 
+  )).toString()
+
+  console.log(tags)
+
   return <>
+    <Head>
+      <title>{t("head.mainTitle")} | {post.title}</title>
+      <meta name="description" content={post.description} />
+      <meta name="tags" content={tags} />
+    </Head>
     <Item style={{ border: '1px sold #000' }} key={post._id}>
       <div style={{ border: '1px sold #000', padding: '20px 0' }}>
       <Typography paragraph className={styles.topBage}>

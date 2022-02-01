@@ -149,17 +149,19 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
 
 export const RightMenu = () => {
   const [tab, setTab] = useState(0)
-  const { locale } = useRouter()
+  const router = useRouter()
   const { t } = useTranslation('common')
   const styles = useStyles()
   const [currencies, setCurrencies] = useState([])
-  const greeting = locale === "en" ? "Hello World!" : "Привіт, Світ!"
+  const greeting = router.locale === "en" ? "Hello World!" : "Привіт, Світ!"
   const BASE_API_PATH = "https://kosht-api.herokuapp.com/api"
   // const BASE_API_PATH = "http://193.46.199.82:5000/api"
   const EDITOR_CHOICE_SLUG = "editor-choice"
   const EDITOR_CHOICE_URL = `${BASE_API_PATH}/lists/slug/${EDITOR_CHOICE_SLUG}`
+  const NEWS_URL = `https://kosht-api.herokuapp.com/api/posts`
   const fetcher = url => axios.get(url).then(res => res.data)
   const {data: posts, error: postsError} = useSWR(EDITOR_CHOICE_URL, fetcher)
+  const {data: data, error: allPostsError} = useSWR(NEWS_URL, fetcher)
 
   const handleChange = (event, newValue) => setTab(newValue)
 
@@ -169,7 +171,9 @@ export const RightMenu = () => {
 
   // if (postsError) return <SectionTitle title="Error: failed to load posts" />
   if (!posts) return null
+  if (!data) return <div>Posts were not found</div>
 
+  console.log(data)
 
   const currenciesList = <div id="euro-tab-table_general">
     <>
@@ -205,7 +209,7 @@ export const RightMenu = () => {
           <TableRow key={index}>
             <TableCell className={styles.tableBodyCell}>
               <Typography className={[styles.tableRowText, styles.tableRegularText].concat(" ")}>
-                {locale === "uk" ? item.bank_title_ua : item.bank_title_en}
+                {router.locale === "uk" ? item.bank_title_ua : item.bank_title_en}
               </Typography>
             </TableCell>
             <TableCell className={[styles.tableBodyCell, styles.tableHeadCellRight].concat(" ")}>
@@ -247,7 +251,7 @@ export const RightMenu = () => {
           <TableRow key={index}>
             <TableCell className={styles.tableBodyCell}>
               <Typography className={[styles.tableRowText, styles.tableRegularText].concat(" ")}>
-              {locale === "uk" ? item.bank_title_ua : item.bank_title_en}
+              {router.locale === "uk" ? item.bank_title_ua : item.bank_title_en}
               </Typography>
             </TableCell>
             <TableCell className={styles.tableBodyCell}>
@@ -263,16 +267,24 @@ export const RightMenu = () => {
     </TabPanel>
   </div> 
 
-  return <>
+  return !router.pathname.includes("currencies") 
+  ? 
+  <>
     <PostSeparateListIndex 
-      label={locale === "uk" ? "Курс валют на сьогодні" : "Exchange rate for today"}
+      label={t("currenciesPage.titleCurrenciesToday")}
       items={currencies}
       currenciesList={currenciesList}
     />
-
     <PostSeparateListIndex 
-      label={locale === "uk" ? "Вибір редакції" : "Editor choice"}
+      label={t("separateList.titleEditorChoice")}
       items={posts.posts}
+    />
+  </> 
+  : 
+  <>
+    <PostSeparateListIndex
+      label={t("separateList.titleNews")}
+      items={data.data.slice(0, 10)}
     />
   </>
 }

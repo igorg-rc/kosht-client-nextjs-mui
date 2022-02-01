@@ -4,11 +4,13 @@ import Link from "../../src/Link";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { Item, SectionTitle } from "../../components/UI/UIUnits"
-import { useTheme, makeStyles } from "@mui/styles"
+import { makeStyles } from "@mui/styles"
 import Image from "next/image";
 import moment from 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/uk'
+import Head from "next/head";
+import { useTranslation } from "next-i18next";
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -69,11 +71,27 @@ const useStyles = makeStyles(theme => ({
 // const API_LINK = "http://193.46.199.82:5000/api/"
 const API_LINK = "https://kosht-api.herokuapp.com/api"
 
-export default function PostsByCategories({slug, posts}) {
-  const theme = useTheme()
+export default function PostsByCategories(props) {
+  const {posts, category, categories} = props
   const styles = useStyles()
   const router = useRouter()
+  const { t } = useTranslation("common")
+
+  const categoriesListUA = categories.map(i => i.title_ua)
+  const categoriesListEN = categories.map(i => i.title_en)
+  const selectedCategory = router.locale === "uk" ? categoriesListUA : categoriesListEN
+
+
   return (
+    <>
+    <Head>
+      <title>
+        {t("head.mainTitle")} | {t("head.postsByCategory")} 
+        "{router.locale === "uk" ? category.title_ua : category.title_en}"
+      </title>
+      <meta name="keywords" content={selectedCategory} />
+      <meta name="description" content={`${posts.map(i => i.title)}`} />
+    </Head>
     <div>
     {posts?.map(i => <Item style={{ border: '1px sold #000' }} key={i._id}>
       <div style={{ border: '1px sold #000', padding: '20px 0' }}>
@@ -112,6 +130,7 @@ export default function PostsByCategories({slug, posts}) {
       </div>
     </Item>)} 
     </div>
+    </>
   )
 }
 
@@ -133,12 +152,17 @@ export async function getStaticPaths({locales})  {
 export async function getStaticProps(context) {
   const slug = context.params.slug
   const postsList = await axios.get(`${API_LINK}/posts/categories/${slug}`)
+  const resCategory = await axios.get(`${API_LINK}/categories/slug/${slug}`)
+  const resCategories = await axios.get(`${API_LINK}/categories`)
   const posts = postsList.data
+  const category = resCategory.data
+  const categories = resCategories.data
 
   return {
     props: { 
-      slug,
       posts, 
+      category,
+      categories,
       ...await serverSideTranslations(context.locale, ["common"]) 
     }
   }

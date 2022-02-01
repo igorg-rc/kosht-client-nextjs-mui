@@ -5,6 +5,7 @@ import { makeStyles, useTheme } from "@mui/styles";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
+
 const leftMenuStyles = makeStyles((theme) => ({
   listWrapper: {
   },
@@ -35,6 +36,7 @@ const leftMenuStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const spinnerStyles = makeStyles((theme) => ({
   main: {
     textAlign: "center",
@@ -53,6 +55,7 @@ const spinnerStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const linkForActionStyles = makeStyles(theme => ({
   link: { 
     paddingTop: 12,
@@ -69,6 +72,7 @@ const linkForActionStyles = makeStyles(theme => ({
     }
   }
 }))
+
 
 const subscribeInputStyles = makeStyles(theme => ({
   wrapper: {
@@ -102,6 +106,7 @@ export const MyContainer = ({children}) => {
 
 
 export const SpinnerLoadPage = ({ loadingStatus }) => {
+  const router = useRouter()
   const styles = spinnerStyles();
   return (
     <div className={styles.main}>
@@ -121,8 +126,10 @@ export const SpinnerLoadPage = ({ loadingStatus }) => {
   );
 };
 
-export const SpinnerContent = ({ loading, locale }) => {
+export const SpinnerContent = ({ loading }) => {
+  const router = useRouter()
   const styles = spinnerStyles();
+
   return (
     <div className={styles.main}>
       <ScaleLoader
@@ -133,13 +140,17 @@ export const SpinnerContent = ({ loading, locale }) => {
         margin={5}
         color={"#2E3A59"}
       />
-      <Typography component="h3" className={styles.title}>
-        { loading && locale === "en" ? <>Loading...</> :
-          loading && locale === "uk" ? <>Завантаження...</> : null }
+      <Typography 
+        component="h3" 
+        className={styles.title}
+      >
+        { loading && router.locale === "en" ? <>Loading...</> :
+          loading && router.locale === "uk" ? <>Завантаження...</> : null }
       </Typography>
     </div>
   );
 };
+
 
 export const SectionTitle = props => {
   const { title, children, link } = props
@@ -162,8 +173,8 @@ export const SectionTitle = props => {
   );
 };
 
-export const LeftMenuList = (props) => {
 
+export const LeftMenuList = props => {
   const { items, locale, item } = props;
   const styles = leftMenuStyles();
   const router = useRouter();
@@ -266,6 +277,7 @@ export const Item = ({ children }) => (
   </div>
 );
 
+
 export const LinkForAction = ({subscribe, onSubmit}) => {
   const styles = linkForActionStyles()
 
@@ -275,6 +287,7 @@ export const LinkForAction = ({subscribe, onSubmit}) => {
     </span>
   </div>
 }
+
 
 export const SubscribeInput = props => {
   const {placeholder, subscribe, onSubmit, onChange} = props

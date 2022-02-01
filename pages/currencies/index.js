@@ -516,22 +516,9 @@ export default function CurrencyFull() {
 }
 
 
-export const getStaticProps = async ({ locale }) => {
+export const getServerSideProps = async context => {
   return {
     props: {
-      ...await serverSideTranslations(locale, ["common"]) 
-    }
-  }
-}
-
-export const getStaticPaths = async ({ locales }) => {
-  return {
-    props: {
-      paths: [{
-        params: '/', locale: "uk",
-        params: '/', locale: "en"
-      }],
-      fallback: 'blocking'
-    }
+      ...await serverSideTranslations(context.locale, ["common"]) }
   }
 }

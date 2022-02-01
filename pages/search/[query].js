@@ -81,8 +81,8 @@ export default function Query({query, posts}) {
   return <>
   <Head>
     <title>{t("head.mainTitle")} | {t("head.searchByQuery")} "{query}"</title>
-    <meta title="description" content={postTitles} />
-    <meta title="keywords" content={`${t("head.mainTitle")}, ${query}, ${t("head.search")}`} />
+    <meta name="description" content={postTitles} />
+    <meta name="keywords" content={`${t("head.mainTitle")}, ${query}, ${t("head.search")}`} />
   </Head>
   { (posts && posts.length > 0) 
   ?

@@ -233,8 +233,8 @@ const ProductTable = props => {
   return <>
     <Head>
       <title>{t("head.mainTitle")} | {t("currenciesPage.titleCurrenciesToday")}</title>
-      <meta title="keywords" content={t("currenciesPage.currenciesList")} />
-      <meta title="description" content={t("currenciesPage.currenciesDesc")} />
+      <meta name="keywords" content={t("currenciesPage.currenciesList")} />
+      <meta name="description" content={t("currenciesPage.currenciesDesc")} />
     </Head>
     <TableContainer>
     <Table>
@@ -516,8 +516,22 @@ export default function CurrencyFull() {
 }
 
 
-export const getServerSideProps = async context => {
+export const getStaticProps = async ({ locale }) => {
   return {
-    props: {...await serverSideTranslations(context.locale, ["common"]) }
+    props: {
+      ...await serverSideTranslations(locale, ["common"]) 
+    }
+  }
+}
+
+export const getStaticPaths = async ({ locales }) => {
+  return {
+    props: {
+      paths: [{
+        params: '/', locale: "uk",
+        params: '/', locale: "en"
+      }],
+      fallback: 'blocking'
+    }
   }
 }

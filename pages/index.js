@@ -87,11 +87,11 @@ const Index = ({posts, listItems}) => {
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title>
         <meta name="description" content={t("head.indexDescription")} />
         <meta name="keywords" content={t("head.indexKeywords")} />
-      </Head>
+      </Head> */}
       {/* <PostSeparateListIndex
         label={router.locale === "uk" ? "Головне" : "Main news"}
         items={showMore ? listItems.slice(0, 5) : listItems.slice(0, 10)}
@@ -145,7 +145,7 @@ const Index = ({posts, listItems}) => {
 
 export default Index
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   // const LOCAL_API_LINK = "http://193.46.199.82:5000/api"
   // const PROD_API_LINK = "http:localhost:5000/api"
   const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  

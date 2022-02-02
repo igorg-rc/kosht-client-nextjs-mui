@@ -91,11 +91,11 @@ export default function Post({ post, fetchedPosts }) {
   console.log(tags)
 
   return <>
-    {/* <Head>
+    <Head>
       <title>{t("head.mainTitle")} | {post.title}</title>
       <meta name="description" content={post.description} />
       <meta name="tags" content={tags} />
-    </Head> */}
+    </Head>
     <Item style={{ border: '1px sold #000' }} key={post._id}>
       <div style={{ border: '1px sold #000', padding: '20px 0' }}>
       <Typography paragraph className={styles.topBage}>
@@ -131,14 +131,14 @@ export default function Post({ post, fetchedPosts }) {
       </div>
     </Item>
 
-    {/* <PostSeparateListIndex
+    <PostSeparateListIndex
       label={router.locale === "uk" ? "Читайте також" : "Read more"}
       items={showMore ? fetchedPosts.slice(0, 5) : fetchedPosts.slice(0, 10)}
       showMore={showMore}
       expanded={expanded}
       toggleExpanded={() => setExpanded(!expanded)}
       toggleShowMore={() => setShowMore(!showMore)} 
-    /> */}
+    />
   </>
   
 }

@@ -87,19 +87,19 @@ const Index = ({posts}) => {
 
   return (
     <>
-      {/* <Head>
+      <Head>
         <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title>
         <meta name="description" content={t("head.indexDescription")} />
         <meta name="keywords" content={t("head.indexKeywords")} />
-      </Head> */}
-      {/* <PostSeparateListIndex
+      </Head>
+      <PostSeparateListIndex
         label={router.locale === "uk" ? "Головне" : "Main news"}
         items={showMore ? listItems.slice(0, 5) : listItems.slice(0, 10)}
         showMore={showMore}
         expanded={expanded}
         toggleExpanded={() => setExpanded(!expanded)}
         toggleShowMore={() => setShowMore(!showMore)} 
-      /> */}
+      />
 
       {posts ? posts.map(i =>  <div key={i._id} style={{ border: '1px sold #000', marginBottom: 20 }}>
         <Item >
@@ -149,14 +149,14 @@ export async function getServerSideProps(context) {
   // const LOCAL_API_LINK = "http://193.46.199.82:5000/api"
   // const PROD_API_LINK = "http:localhost:5000/api"
   const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
-  // const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
-  // const listItems = res.data.posts
+  const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
+  const listItems = res.data.posts
   const posts = fetchedPosts.data.data
 
   return {
     props: {
       posts, 
-      // listItems,
+      listItems,
       ...await serverSideTranslations(context.locale, ['common']) 
     } 
   }

@@ -231,11 +231,11 @@ const ProductTable = props => {
   };
 
   return <>
-    <Head>
+    {/* <Head>
       <title>{t("head.mainTitle")} | {t("currenciesPage.titleCurrenciesToday")}</title>
       <meta name="keywords" content={t("currenciesPage.currenciesList")} />
       <meta name="description" content={t("currenciesPage.currenciesDesc")} />
-    </Head>
+    </Head> */}
     <TableContainer>
     <Table>
       <TableHead className={styles.tableHeadRow}>

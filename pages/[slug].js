@@ -91,11 +91,11 @@ export default function Post({ post, fetchedPosts }) {
   console.log(tags)
 
   return <>
-    <Head>
+    {/* <Head>
       <title>{t("head.mainTitle")} | {post.title}</title>
       <meta name="description" content={post.description} />
       <meta name="tags" content={tags} />
-    </Head>
+    </Head> */}
     <Item style={{ border: '1px sold #000' }} key={post._id}>
       <div style={{ border: '1px sold #000', padding: '20px 0' }}>
       <Typography paragraph className={styles.topBage}>

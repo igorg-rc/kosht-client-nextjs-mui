@@ -83,13 +83,13 @@ export default function PostsByTags({posts, tag, tags}) {
   console.log(tags)
 
   return <>
-    <Head>
+    {/* <Head>
       <title>
         {t("head.mainTitle")} | {t("head.postsByTag")} "{selectedTag}"
       </title>
       <meta name="keywords" content={selectedTags} />
       <meta name="description" content={`${posts.map(i => i.title)}`} />
-    </Head>
+    </Head> */}
     {posts?.map(i => <Item style={{ border: '1px sold #000' }} key={i._id}>
       <div style={{ border: '1px sold #000', padding: '20px 0' }}>
       <Typography paragraph className={styles.topBage}>

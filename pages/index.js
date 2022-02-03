@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles'
 import axios from 'axios'
 import Link from '../src/Link'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+// import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { PostSeparateListIndex } from '../components/PostList/PostSeparateListIndex'
 import { SectionTitle } from '../components/UI/UIUnits'
 import { Item } from '../components/UI/UIUnits'
@@ -150,7 +150,7 @@ export async function getServerSideProps({locale}) {
     props: {
       posts, 
       // listItems,
-      ...await serverSideTranslations(locale, ['common']) 
+      // ...await serverSideTranslations(locale, ['common']) 
     } 
   }
 }

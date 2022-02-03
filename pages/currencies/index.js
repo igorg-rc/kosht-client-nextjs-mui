@@ -1,4 +1,4 @@
-import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+// import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useEffect, useState, useMemo } from "react"
 import { makeStyles } from "@mui/styles"
 import { Typography, Table, TableHead, TableBody, TableRow, TableCell, TextField, TableContainer, InputAdornment } from "@mui/material"
@@ -292,23 +292,23 @@ const ProductTable = props => {
           <TableCell component="th" className={styles.tableHeadCell}>
             <Typography className={[styles.tableBoldText, styles.tableHeadCellRight].concat(" ")}>{t("currenciesPage.atCard")}</Typography>
             <div style={{ textAlign: 'right', marginLeft: 'auto' }}>
-              <span onClick={() => requestSort('card_bye')} className={[getClassNamesFor('card_bye'), styles.sortSpan].join(" ")}>
+              <span onClick={() => requestSort('card_bye')} className={`${getClassNamesFor('card_bye')} ${styles.sortSpan}`}>
                 {t("currenciesPage.currencyBuy")}&nbsp;&#8597;
               </span>
               <span className={styles.sortSpan}>&nbsp;/&nbsp;</span>
-              <span onClick={() => requestSort('card_sell')} className={[getClassNamesFor('card_sell'), styles.sortSpan].join(" ")}>
+              <span onClick={() => requestSort('card_sell')} className={`${getClassNamesFor('card_sell')} ${styles.sortSpan}`}>
                 {t("currenciesPage.currencySelling")}&nbsp;&#8597;
               </span>
             </div>
           </TableCell>
           <TableCell component="th" className={styles.tableHeadCell}>
-            <Typography className={[styles.tableBoldText, styles.tableHeadCellRight].concat(" ")}>{t("currenciesPage.atOnline")}</Typography>
+            <Typography className={`${styles.tableBoldText} ${styles.tableHeadCellRight}`}>{t("currenciesPage.atOnline")}</Typography>
             <div style={{ textAlign: 'right', marginLeft: 'auto' }}>
-              <span onClick={() => requestSort('online_bye')} className={[getClassNamesFor('online_bye'), styles.sortSpan].join(" ")}>
+              <span onClick={() => requestSort('online_bye')} className={`${getClassNamesFor('online_bye')} ${styles.sortSpan}`}>
                 {t("currenciesPage.currencyBuy")}&nbsp;&#8597;
               </span>
               <span className={styles.sortSpan}>&nbsp;/&nbsp;</span>
-              <span onClick={() => requestSort('online_sell')} className={[getClassNamesFor('online_sell'), styles.sortSpan].join(" ")}>
+              <span onClick={() => requestSort('online_sell')} className={`${getClassNamesFor('online_sell')} ${styles.sortSpan}`}>
                 {t("currenciesPage.currencySelling")}&nbsp;&#8597;
               </span>
             </div>
@@ -519,7 +519,7 @@ export default function CurrencyFull() {
 export async function getServerSideProps(context) {
   return {
     props: {
-      ...await serverSideTranslations(context.locale, ["common"]) 
+      // ...await serverSideTranslations(context.locale, ["common"]) 
     }
   }
 }

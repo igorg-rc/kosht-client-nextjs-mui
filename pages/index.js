@@ -70,7 +70,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-const Index = () => {
+const Index = ({posts}) => {
   // const { t } = useTranslation("common")
   const router = useRouter()
   const styles = useStyles()
@@ -83,7 +83,7 @@ const Index = () => {
 
   if (router.isFallback) return <div>Loading...</div>
 
-  // console.log(posts)
+  console.log(posts)
   // console.log(listItems)
 
   return (
@@ -164,24 +164,23 @@ const Index = () => {
 
 export default Index
 
-// export async function getServerSideProps({locale}) {
-//   const posts = await axios.get('https://kosht-api.herokuapp.com/api/posts')
-//     .then(res => res.data.data) 
-//     .catch(err => console.log(err))
+export async function getServerSideProps({locale}) {
+  const res = await axios.get('https://kosht-api.herokuapp.com/api/posts')
+  const posts = res.data
     
-//   // const listItems = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
-//   //   .then(res => res.data.posts) 
-//   //   .catch(err => console.log(err))
+  // const listItems = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
+  //   .then(res => res.data.posts) 
+  //   .catch(err => console.log(err))
 
-//   // const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
-//   // const listItems = res.data.posts
-//   // const posts = fetchedPosts.data.data
+  // const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
+  // const listItems = res.data.posts
+  // const posts = fetchedPosts.data.data
 
-//   return {
-//     props: {
-//       posts, 
-//       // listItems,
-//       ...await serverSideTranslations(locale, ['common']) 
-//     } 
-//   }
-// }
+  return {
+    props: {
+      posts, 
+      // listItems,
+      // ...await serverSideTranslations(locale, ['common']) /
+    } 
+  }
+}

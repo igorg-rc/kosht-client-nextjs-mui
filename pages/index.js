@@ -77,7 +77,7 @@ const loadData = async locale => {
 
 
 const Index = ({posts, listItems}) => {
-  const { t } = useTranslation("common")
+  // const { t } = useTranslation("common")
   const router = useRouter()
   const styles = useStyles()
   const [showMore, setShowMore] = useState(true)
@@ -89,11 +89,11 @@ const Index = ({posts, listItems}) => {
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title>
         <meta name="description" content={t("head.indexDescription")} />
         <meta name="keywords" content={t("head.indexKeywords")} />
-      </Head>
+      </Head> */}
       <PostSeparateListIndex
         label={router.locale === "uk" ? "Головне" : "Main news"}
         items={showMore ? listItems.slice(0, 5) : listItems.slice(0, 10)}

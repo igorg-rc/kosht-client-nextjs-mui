@@ -1,4 +1,4 @@
-// import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useEffect, useState, useMemo } from "react"
 import { makeStyles } from "@mui/styles"
 import { Typography, Table, TableHead, TableBody, TableRow, TableCell, TextField, TableContainer, InputAdornment } from "@mui/material"
@@ -7,7 +7,6 @@ import { Tabs, Tab, Panel } from '@bumaga/tabs'
 import searchIcon from '../../files/images/UI/search.png'
 import { useTranslation } from "next-i18next"
 import { useRouter } from "next/router"
-// import { SpinnerContent } from "../UI/SpinnerContent"
 import { SpinnerContent } from "../../components/UI/UIUnits"
 import "react-tabs/style/react-tabs.css"
 import Image from "next/image"
@@ -279,13 +278,13 @@ const ProductTable = props => {
             </div>
           </TableCell>
           <TableCell component="th" className={styles.tableHeadCell}>
-            <Typography className={[styles.tableBoldText, styles.tableHeadCellRight].concat(" ")}>{t("currenciesPage.atPayDesk")}</Typography>
+            <Typography className={`${styles.tableBoldText} ${styles.tableHeadCellRight}`}>{t("currenciesPage.atPayDesk")}</Typography>
             <div style={{ textAlign: 'right', marginLeft: 'auto' }}>
-              <span onClick={() => requestSort('paydesk_bye')} className={[getClassNamesFor('paydesk_bye'), styles.sortSpan].join(" ")}>
+              <span onClick={() => requestSort('paydesk_bye')} className={`${getClassNamesFor('paydesk_bye')} ${styles.sortSpan}`}>
                 {t("currenciesPage.currencyBuy")}&nbsp;&#8597;
               </span>
               <span className={styles.sortSpan}>&nbsp;/&nbsp;</span>
-              <span onClick={() => requestSort('paydesk_sell')} className={[getClassNamesFor('paydesk_sell'), styles.sortSpan].join(" ")}>
+              <span onClick={() => requestSort('paydesk_sell')} className={`${getClassNamesFor('paydesk_sell')} ${styles.sortSpan}`}>
                 {t("currenciesPage.currencySelling")}&nbsp;&#8597;
               </span>
             </div>
@@ -520,7 +519,7 @@ export default function CurrencyFull() {
 export async function getServerSideProps(context) {
   return {
     props: {
-      // ...await serverSideTranslations(context.locale, ["common"]) 
+      ...await serverSideTranslations(context.locale, ["common"]) 
     }
   }
 }

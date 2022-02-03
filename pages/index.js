@@ -8,7 +8,7 @@ import { PostSeparateListIndex } from '../components/PostList/PostSeparateListIn
 import { SectionTitle } from '../components/UI/UIUnits'
 import { Item } from '../components/UI/UIUnits'
 import { Typography } from '@mui/material'
-import { useTranslation } from 'next-i18next'
+// import { useTranslation } from 'next-i18next'
 import Head from "next/head"
 import moment from 'moment'
 import 'moment/locale/en-gb'
@@ -71,11 +71,15 @@ const useStyles = makeStyles(theme => ({
 
 
 const Index = ({posts, listItems}) => {
-  const { t } = useTranslation("common")
+  // const { t } = useTranslation("common")
   const router = useRouter()
   const styles = useStyles()
   const [showMore, setShowMore] = useState(true)
   const [expanded, setExpanded] = useState(true)
+
+  const localeUA = router.locale === "uk"
+  const titleUA = 'Кошт | Говоримо про персональні фінанси'
+  const titleEN = 'Kosht | We talk about personal finances'
 
   if (router.isFallback) return <div>Loading...</div>
 
@@ -84,11 +88,12 @@ const Index = ({posts, listItems}) => {
   return (
     <>
       <Head>
-        <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title>
+        {/* <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title>
         <meta name="description" content={t("head.indexDescription")} />
-        <meta name="keywords" content={t("head.indexKeywords")} />
+        <meta name="keywords" content={t("head.indexKeywords")} /> */}
+        <title>{localeUA ? titleUA : titleEN}</title>
       </Head>
-      <h1  style={{ textAlign: 'center' }}>Index page</h1>
+      <h1  style={{ textAlign: 'center' }}>{!localeUA ? "Index page" : "Головна"}</h1>
       {/* <PostSeparateListIndex
         label={router.locale === "uk" ? "Головне" : "Main news"}
         items={showMore ? listItems.slice(0, 5) : listItems.slice(0, 10)}
@@ -140,24 +145,7 @@ const Index = ({posts, listItems}) => {
   );
 }
 
-Index.getInitialProps = async (context) => {
-  const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
-  // const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
-  // const listItems = res.data.posts
-  const posts = fetchedPosts.data.data
-
-  return {
-    props: {
-      posts, 
-      // listItems,
-      // ...await serverSideTranslations(context.locale, ['common']) 
-    } 
-  }
-}
-
-export default Index
-
-// export async function getServerSideProps({locale}) {
+// Index.getInitialProps = async (context) => {
 //   const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
 //   // const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
 //   // const listItems = res.data.posts
@@ -167,7 +155,25 @@ export default Index
 //     props: {
 //       posts, 
 //       // listItems,
-//       // ...await serverSideTranslations(locale, ['common']) 
+//       // ...await serverSideTranslations(context.locale, ['common']) 
 //     } 
 //   }
 // }
+
+export default Index
+
+export async function getServerSideProps({locale}) {
+  const posts = await axios.get('https://kosht-api.herokuapp.com/api/posts')
+    .then(res => res.data.data) 
+  // const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
+  // const listItems = res.data.posts
+  // const posts = fetchedPosts.data.data
+
+  return {
+    props: {
+      posts, 
+      // listItems,
+      // ...await serverSideTranslations(locale, ['common']) 
+    } 
+  }
+}

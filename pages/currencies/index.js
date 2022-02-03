@@ -412,107 +412,112 @@ export default function CurrencyFull() {
   }
 
 
-  return !loading 
-  ? <>
-  <div className={styles.main}>
-    <div className={styles.headSummary}>
-      <div className={styles.row}>
-        <span className={styles.unicodeRound}>&#11044;</span>
-        <span className={styles.label}>{sectionTitle}</span> 
-      </div>
-    </div>
-    <Tabs>
-      <div style={{ textAlign: 'left',  borderRadius: 6, display: 'flex', flexDirection: 'row' }}>
-        { tabList.map((type, index) => (
-          <div onClick={e => handleClick(type, index)}>
-            <Tab 
-              tab={tab} 
-              key={type} 
-              active={active == type} 
-              onClick={(type, index) => handleClick(type, index)}
-            >
-              <button 
-                type="button"
-                // key={type}
-                onClick={e => alert("clicked")}
-                className={styles.tabBtn}
-                style={{ 
-                  color: active == type ? '#5669FF' : '#2E3A59',
-                  // fontWeight: (active && index == activeIndex) ? 600 : 'normal',
-                  borderBottom: active == type ? '2px solid #5669FF': '2px solid #fff',
-                  fontWeight: active == type ? 600 : 500,
-                }} 
-                >{type}
-              </button>
-            </Tab>
-          </div>
-        ))}
-      </div>
+  return <>
+    <h1 style={{ textAlign: 'center' }}>Currencies page</h1>
+  </>
 
-      <div 
-        style={{ 
-          height: '3vh', 
-          background: "#F8F8F8", 
-          margin: '0 -30px', 
-          borderRadius: 10 
-        }}
-      ></div>
+  // ? <>
+  // <div className={styles.main}>
+  //   <div className={styles.headSummary}>
+  //     <div className={styles.row}>
+  //       <span className={styles.unicodeRound}>&#11044;</span>
+  //       <span className={styles.label}>{sectionTitle}</span> 
+  //     </div>
+  //   </div>
+  //   <Tabs>
+  //     <div style={{ textAlign: 'left',  borderRadius: 6, display: 'flex', flexDirection: 'row' }}>
+  //       { tabList.map((type, index) => (
+  //         <div onClick={e => handleClick(type, index)}>
+  //           <Tab 
+  //             tab={tab} 
+  //             key={type} 
+  //             active={active == type} 
+  //             onClick={(type, index) => handleClick(type, index)}
+  //           >
+  //             <button 
+  //               type="button"
+  //               // key={type}
+  //               onClick={e => alert("clicked")}
+  //               className={styles.tabBtn}
+  //               style={{ 
+  //                 color: active == type ? '#5669FF' : '#2E3A59',
+  //                 // fontWeight: (active && index == activeIndex) ? 600 : 'normal',
+  //                 borderBottom: active == type ? '2px solid #5669FF': '2px solid #fff',
+  //                 fontWeight: active == type ? 600 : 500,
+  //               }} 
+  //               >{type}
+  //             </button>
+  //           </Tab>
+  //         </div>
+  //       ))}
+  //     </div>
 
-      <div style={{ borderRadius: 6 }}>
-        <Panel>
-          <ProductTable 
-            currencies={rowsEuro} 
-            query={searchedEuro} 
-            onInputChange={e => setSearchedEuro(e.target.value)} 
-          />
-        </Panel>
-        <Panel>
-          <ProductTable 
-            currencies={rowsUSD} 
-            query={searchedUSD} 
-            onInputChange={e => setSearchedUSD(e.target.value)} 
-          />
-        </Panel>
-        <Panel>
-          <ProductTable 
-            currencies={rowsRub} 
-            query={searchedRub} 
-            onInputChange={e => setSearchedRub(e.target.value)} 
-          />
-        </Panel>
-        <Panel>
-          <ProductTable 
-            currencies={rowsPound} 
-            query={searchedPound} 
-            onInputChange={e => setSearchedPound(e.target.value)} 
-          />
-        </Panel>
-        <Panel>
-          <ProductTable 
-            currencies={rowsFrSw} 
-            query={searchedFrSw} 
-            onInputChange={e => setSearchedFrSw(e.target.value)} 
-          />
-        </Panel>
-        <Panel>
-          <ProductTable 
-            currencies={rowsZlot} 
-            query={searchedZlot} 
-            onInputChange={e => setSearchedZlot(e.target.value)} 
-          />
-        </Panel>
-        <Panel>
-          <ProductTable 
-            currencies={rowsCrona} 
-            query={searchedCrona} 
-            onInputChange={e => setSearchedCrona(e.target.value)} 
-          />
-        </Panel>
-      </div>
-    </Tabs>
-    </div>
-  </> 
-  : <SpinnerContent loadingStatus={loading} />
+  //     <div 
+  //       style={{ 
+  //         height: '3vh', 
+  //         background: "#F8F8F8", 
+  //         margin: '0 -30px', 
+  //         borderRadius: 10 
+  //       }}
+  //     ></div>
+
+  //     <div style={{ borderRadius: 6 }}>
+  //       <Panel>
+  //         <ProductTable 
+  //           currencies={rowsEuro} 
+  //           query={searchedEuro} 
+  //           onInputChange={e => setSearchedEuro(e.target.value)} 
+  //         />
+  //       </Panel>
+  //       <Panel>
+  //         <ProductTable 
+  //           currencies={rowsUSD} 
+  //           query={searchedUSD} 
+  //           onInputChange={e => setSearchedUSD(e.target.value)} 
+  //         />
+  //       </Panel>
+  //       <Panel>
+  //         <ProductTable 
+  //           currencies={rowsRub} 
+  //           query={searchedRub} 
+  //           onInputChange={e => setSearchedRub(e.target.value)} 
+  //         />
+  //       </Panel>
+  //       <Panel>
+  //         <ProductTable 
+  //           currencies={rowsPound} 
+  //           query={searchedPound} 
+  //           onInputChange={e => setSearchedPound(e.target.value)} 
+  //         />
+  //       </Panel>
+  //       <Panel>
+  //         <ProductTable 
+  //           currencies={rowsFrSw} 
+  //           query={searchedFrSw} 
+  //           onInputChange={e => setSearchedFrSw(e.target.value)} 
+  //         />
+  //       </Panel>
+  //       <Panel>
+  //         <ProductTable 
+  //           currencies={rowsZlot} 
+  //           query={searchedZlot} 
+  //           onInputChange={e => setSearchedZlot(e.target.value)} 
+  //         />
+  //       </Panel>
+  //       <Panel>
+  //         <ProductTable 
+  //           currencies={rowsCrona} 
+  //           query={searchedCrona} 
+  //           onInputChange={e => setSearchedCrona(e.target.value)} 
+  //         />
+  //       </Panel>
+  //     </div>
+  //   </Tabs>
+  //   </div>
+  // </> 
+  // : <SpinnerContent loadingStatus={loading} />
+  
+  
 }
 
 

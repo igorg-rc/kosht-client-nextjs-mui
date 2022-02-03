@@ -8,17 +8,17 @@ import LeftMenu from './LeftMenu'
 export default function Layout({ children }) {
   return <>
   <MyContainer>
-    {/* <Header /> */}
+    <Header />
     <Grid container spacing={3}>
-      {/* <Grid item xs={3}>
+      <Grid item xs={3}>
         <LeftMenu />
-      </Grid> */}
+      </Grid>
       <Grid item xs={6}>
         {children}
       </Grid>
-      {/* <Grid item xs={3}>
+      <Grid item xs={3}>
         <RightMenu />
-      </Grid> */}
+      </Grid>
     </Grid>
   </MyContainer>
   </>

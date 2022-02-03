@@ -84,7 +84,7 @@ export default function Query({query, posts}) {
     <meta name="description" content={postTitles} />
     <meta name="keywords" content={`${t("head.mainTitle")}, ${query}, ${t("head.search")}`} />
   </Head>
-  { (posts && posts.length > 0) 
+  {/* { (posts && posts.length > 0) 
   ?
   <> 
   <SectionTitle title={`${t("search.searchQuery")} "${query}"`} /> 
@@ -133,8 +133,8 @@ export default function Query({query, posts}) {
     <SectionTitle 
       title={t("search.searchMessage")} 
     />
-  </> }
-
+  </> } */}
+  <h1 style={{ textAlign: 'center' }}>Search page</h1>
   </>
 }
 

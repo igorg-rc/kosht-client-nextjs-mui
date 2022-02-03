@@ -84,6 +84,7 @@ const Index = ({posts, listItems}) => {
   if (router.isFallback) return <div>Loading...</div>
 
   console.log(posts)
+  console.log(listItems)
 
   return (
     <>
@@ -91,18 +92,17 @@ const Index = ({posts, listItems}) => {
         {/* <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title>
         <meta name="description" content={t("head.indexDescription")} />
         <meta name="keywords" content={t("head.indexKeywords")} /> */}
-        <title>{localeUA ? titleUA : titleEN}</title>
       </Head>
       <h1  style={{ textAlign: 'center' }}>{!localeUA ? "Index page" : "Головна"}</h1>
       <PostSeparateListIndex
         label={router.locale === "uk" ? "Головне" : "Main news"}
-        items={showMore ? listItems?.slice(0, 5) : listItems?.slice(0, 10)}
+        items={showMore ? listItems?.slice(0, 5) : listItems?.slice(0, listItems.length)}
         showMore={showMore}
         expanded={expanded}
         toggleExpanded={() => setExpanded(!expanded)}
         toggleShowMore={() => setShowMore(!showMore)} 
       />
-{/* 
+
       {posts?.map(i =>  <div key={i._id} style={{ border: '1px sold #000', marginBottom: 20 }}>
         <Item >
         <div style={{ border: '1px sold #000', padding: '20px 0' }}>
@@ -140,7 +140,7 @@ const Index = ({posts, listItems}) => {
           {i.imgUrl && <Image src={i.imgUrl} />}
           </div>
         </Item>
-      </div>)}  */}
+      </div>)} 
     </>
   );
 }
@@ -163,21 +163,21 @@ const Index = ({posts, listItems}) => {
 export default Index
 
 export async function getServerSideProps({locale}) {
-  // const posts = await axios.get('https://kosht-api.herokuapp.com/api/posts')
-  //   .then(res => res.data.data) 
-  //   .catch(err => console.log(err))
+  const posts = await axios.get('https://kosht-api.herokuapp.com/api/posts')
+    .then(res => res.data.data) 
+    .catch(err => console.log(err))
     
-  // const listItems = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
-  //   .then(res => res.data) 
-  //   .catch(err => console.log(err))
+  const listItems = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
+    .then(res => res.data.posts) 
+    .catch(err => console.log(err))
 
-  const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
-  const listItems = res.data.posts
+  // const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
+  // const listItems = res.data.posts
   // const posts = fetchedPosts.data.data
 
   return {
     props: {
-      // posts, 
+      posts, 
       listItems,
       // ...await serverSideTranslations(locale, ['common']) 
     } 

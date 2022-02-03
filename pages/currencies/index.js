@@ -1,4 +1,4 @@
-import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+// import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useEffect, useState, useMemo } from "react"
 import { makeStyles } from "@mui/styles"
 import { Typography, Table, TableHead, TableBody, TableRow, TableCell, TextField, TableContainer, InputAdornment } from "@mui/material"
@@ -231,11 +231,11 @@ const ProductTable = props => {
   };
 
   return <>
-    {/* <Head>
+    <Head>
       <title>{t("head.mainTitle")} | {t("currenciesPage.titleCurrenciesToday")}</title>
       <meta name="keywords" content={t("currenciesPage.currenciesList")} />
       <meta name="description" content={t("currenciesPage.currenciesDesc")} />
-    </Head> */}
+    </Head>
     <TableContainer>
     <Table>
       <TableHead className={styles.tableHeadRow}>
@@ -520,6 +520,7 @@ export default function CurrencyFull() {
 export async function getServerSideProps(context) {
   return {
     props: {
-      ...await serverSideTranslations(context.locale, ["common"]) }
+      // ...await serverSideTranslations(context.locale, ["common"]) 
+    }
   }
 }

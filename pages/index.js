@@ -8,7 +8,7 @@ import { PostSeparateListIndex } from '../components/PostList/PostSeparateListIn
 import { SectionTitle } from '../components/UI/UIUnits'
 import { Item } from '../components/UI/UIUnits'
 import { Typography } from '@mui/material'
-// import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import Head from "next/head"
 import moment from 'moment'
 import 'moment/locale/en-gb'
@@ -77,7 +77,7 @@ const loadData = async locale => {
 
 
 const Index = ({posts, listItems}) => {
-  // const { t } = useTranslation("common")
+  const { t } = useTranslation("common")
   const router = useRouter()
   const styles = useStyles()
   const [showMore, setShowMore] = useState(true)
@@ -89,11 +89,11 @@ const Index = ({posts, listItems}) => {
 
   return (
     <>
-      {/* <Head>
+      <Head>
         <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title>
         <meta name="description" content={t("head.indexDescription")} />
         <meta name="keywords" content={t("head.indexKeywords")} />
-      </Head> */}
+      </Head>
       <PostSeparateListIndex
         label={router.locale === "uk" ? "Головне" : "Main news"}
         items={showMore ? listItems.slice(0, 5) : listItems.slice(0, 10)}

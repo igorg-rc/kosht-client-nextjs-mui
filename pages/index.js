@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles'
 import axios from 'axios'
 import Link from '../src/Link'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+// import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { PostSeparateListIndex } from '../components/PostList/PostSeparateListIndex'
 import { SectionTitle } from '../components/UI/UIUnits'
 import { Item } from '../components/UI/UIUnits'
@@ -158,8 +158,8 @@ const Index = ({posts, listItems}) => {
 export default Index
 
 export async function getServerSideProps({locale}) {
-  const LOCAL_API_LINK = "http://193.46.199.82:5000/api"
-  const PROD_API_LINK = "http:localhost:5000/api"
+  // const LOCAL_API_LINK = "http://193.46.199.82:5000/api"
+  // const PROD_API_LINK = "http:localhost:5000/api"
   const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
   const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
   const listItems = res.data.posts
@@ -169,7 +169,7 @@ export async function getServerSideProps({locale}) {
     props: {
       posts, 
       listItems,
-      ...await serverSideTranslations(locale, ['common']) 
+      // ...await serverSideTranslations(locale, ['common']) 
     } 
   }
 }

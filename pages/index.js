@@ -3,12 +3,12 @@ import { makeStyles } from '@mui/styles'
 import axios from 'axios'
 // import Link from '../src/Link'
 import { useRouter } from 'next/router'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+// import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 // import { PostSeparateListIndex } from '../components/PostList/PostSeparateListIndex'
 // import { SectionTitle } from '../components/UI/UIUnits'
 // import { Item } from '../components/UI/UIUnits'
 // import { Typography } from '@mui/material'
-import { useTranslation } from 'next-i18next'
+// import { useTranslation } from 'next-i18next'
 import Head from "next/head"
 // import moment from 'moment'
 // import 'moment/locale/en-gb'
@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme => ({
 
 
 const Index = () => {
-  const { t } = useTranslation("common")
+  // const { t } = useTranslation("common")
   const router = useRouter()
   const styles = useStyles()
   const [showMore, setShowMore] = useState(true)

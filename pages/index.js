@@ -4,7 +4,7 @@ import axios from 'axios'
 import Link from '../src/Link'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { PostSeparateListIndex } from '../components/PostList/PostSeparateListIndex'
+// import { PostSeparateListIndex } from '../components/PostList/PostSeparateListIndex'
 import { SectionTitle } from '../components/UI/UIUnits'
 import { Item } from '../components/UI/UIUnits'
 import { Typography } from '@mui/material'
@@ -87,11 +87,11 @@ const Index = ({posts}) => {
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title>
         <meta name="description" content={t("head.indexDescription")} />
         <meta name="keywords" content={t("head.indexKeywords")} />
-      </Head>
+      </Head> */}
       {/* <PostSeparateListIndex
         label={router.locale === "uk" ? "Головне" : "Main news"}
         items={showMore ? listItems.slice(0, 5) : listItems.slice(0, 10)}

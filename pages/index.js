@@ -94,16 +94,16 @@ const Index = ({posts, listItems}) => {
         <meta name="keywords" content={t("head.indexKeywords")} /> */}
       </Head>
       <h1  style={{ textAlign: 'center' }}>{!localeUA ? "Index page" : "Головна"}</h1>
-      <PostSeparateListIndex
+      {/* <PostSeparateListIndex
         label={router.locale === "uk" ? "Головне" : "Main news"}
         items={showMore ? listItems?.slice(0, 5) : listItems?.slice(0, listItems.length)}
         showMore={showMore}
         expanded={expanded}
         toggleExpanded={() => setExpanded(!expanded)}
         toggleShowMore={() => setShowMore(!showMore)} 
-      />
+      /> */}
 
-      {posts?.map(i =>  <div key={i._id} style={{ border: '1px sold #000', marginBottom: 20 }}>
+      {/* {posts?.map(i =>  <div key={i._id} style={{ border: '1px sold #000', marginBottom: 20 }}>
         <Item >
         <div style={{ border: '1px sold #000', padding: '20px 0' }}>
           <Typography paragraph className={styles.topBage}>
@@ -141,7 +141,7 @@ const Index = ({posts, listItems}) => {
           </div>
         </Item>
       </div>)} 
-    </>
+    </> */}
   );
 }
 

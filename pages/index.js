@@ -103,7 +103,7 @@ const Index = ({posts, listItems}) => {
         toggleShowMore={() => setShowMore(!showMore)} 
       /> */}
 
-      {/* {posts ? posts.map(i =>  <div key={i._id} style={{ border: '1px sold #000', marginBottom: 20 }}>
+      {posts?.map(i =>  <div key={i._id} style={{ border: '1px sold #000', marginBottom: 20 }}>
         <Item >
         <div style={{ border: '1px sold #000', padding: '20px 0' }}>
           <Typography paragraph className={styles.topBage}>
@@ -140,7 +140,7 @@ const Index = ({posts, listItems}) => {
           {i.imgUrl && <Image src={i.imgUrl} />}
           </div>
         </Item>
-      </div>) : "postList.noPosts"}  */}
+      </div>)} 
     </>
   );
 }

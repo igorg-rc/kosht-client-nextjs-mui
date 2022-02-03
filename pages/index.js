@@ -76,7 +76,7 @@ const loadData = async locale => {
 }
 
 
-const Index = ({posts}) => {
+const Index = ({posts, listItems}) => {
   const { t } = useTranslation("common")
   const router = useRouter()
   const styles = useStyles()
@@ -84,6 +84,8 @@ const Index = ({posts}) => {
   const [expanded, setExpanded] = useState(true)
 
   if (router.isFallback) return <div>Loading...</div>
+
+  console.log(listItems)
 
   return (
     <>
@@ -144,30 +146,30 @@ const Index = ({posts}) => {
   );
 }
 
-Index.getInitialProps = async context => {
-  const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
-  const posts = fetchedPosts.data
-  return { 
-    posts, 
-    ...await serverSideTranslations(context.locale, ['common']) 
-  }
-}
+// Index.getInitialProps = async context => {
+//   const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
+//   const posts = fetchedPosts.data
+//   return { 
+//     posts, 
+//     ...await serverSideTranslations(context.locale, ['common']) 
+//   }
+// }
 
 export default Index
 
-// export async function getServerSideProps(context) {
-//   // const LOCAL_API_LINK = "http://193.46.199.82:5000/api"
-//   // const PROD_API_LINK = "http:localhost:5000/api"
-//   const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
-//   const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
-//   const listItems = res.data.posts
-//   const posts = fetchedPosts.data.data
+export async function getServerSideProps(context) {
+  // const LOCAL_API_LINK = "http://193.46.199.82:5000/api"
+  // const PROD_API_LINK = "http:localhost:5000/api"
+  // const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
+  const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
+  const listItems = res.data.posts
+  // const posts = fetchedPosts.data.data
 
-//   return {
-//     props: {
-//       posts, 
-//       listItems,
-//       ...await serverSideTranslations(context.locale, ['common']) 
-//     } 
-//   }
-// }
+  return {
+    props: {
+      // posts, 
+      listItems,
+      ...await serverSideTranslations(context.locale, ['common']) 
+    } 
+  }
+}

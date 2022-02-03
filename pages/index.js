@@ -70,7 +70,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-const Index = ({posts, listItems}) => {
+const Index = ({posts}) => {
   // const { t } = useTranslation("common")
   const router = useRouter()
   const styles = useStyles()
@@ -84,7 +84,7 @@ const Index = ({posts, listItems}) => {
   if (router.isFallback) return <div>Loading...</div>
 
   console.log(posts)
-  console.log(listItems)
+  // console.log(listItems)
 
   return (
     <>
@@ -169,9 +169,9 @@ export async function getServerSideProps({locale}) {
     .then(res => res.data.data) 
     .catch(err => console.log(err))
     
-  const listItems = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
-    .then(res => res.data.posts) 
-    .catch(err => console.log(err))
+  // const listItems = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
+  //   .then(res => res.data.posts) 
+  //   .catch(err => console.log(err))
 
   // const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
   // const listItems = res.data.posts
@@ -180,8 +180,8 @@ export async function getServerSideProps({locale}) {
   return {
     props: {
       posts, 
-      listItems,
-      // ...await serverSideTranslations(locale, ['common']) 
+      // listItems,
+      ...await serverSideTranslations(locale, ['common']) 
     } 
   }
 }

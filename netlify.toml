@@ -7,4 +7,4 @@
 
 [functions]
   node_bundler = "esbuild"
-  included_files = ["public/locales/en/*.json", "public/locales/uk/*.json", "next-i18next.config.js", "files/data/mocData.js"]
+  included_files = ["public/locales/en/*.json", "public/locales/uk/*.json", "next-i18next.config.js", "files/data/*.js"]

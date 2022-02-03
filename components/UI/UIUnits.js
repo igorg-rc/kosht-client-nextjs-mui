@@ -49,6 +49,7 @@ const spinnerStyles = makeStyles((theme) => ({
   },
   pageTitle: {
     color: theme.palette.text.primary,
+    textAlign: "center",
     fontSize: 30,
     fontWeight: 700,
     fontFamily: "Gilroy, sans-serif",
@@ -110,8 +111,10 @@ export const SpinnerLoadPage = ({ loadingStatus }) => {
   const styles = spinnerStyles();
   return (
     <div className={styles.main}>
-      <Typography component="h1" className={styles.pageTitle}>
-        Loading...
+      <Typography 
+        component="h1" 
+        className={styles.pageTitle}
+      >Loading...
       </Typography>
       <BeatLoader
         loading={loadingStatus}

@@ -9,6 +9,9 @@ import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
+const API_LINK = 'https://jsonplaceholder.typicode.com'
+
+
 const About = ({ users, posts, contacts }) => {
   const { t } = useTranslation("footer");
   const router = useRouter();
@@ -80,18 +83,12 @@ const About = ({ users, posts, contacts }) => {
 export default About;
 
 export async function getServerSideProps(context) {
-  const fetchedUsers = await axios.get(
-    "https://jsonplaceholder.typicode.com/users"
-  );
-  const fetchedPosts = await axios.get(
-    "https://jsonplaceholder.typicode.com/posts"
-  );
-  const fetchedContacts = await axios.get(
-    "https://kosht-api.herokuapp.com/api/contacts"
-  );
-  const contacts = fetchedContacts.data;
-  const users = fetchedUsers.data;
-  const posts = fetchedPosts.data;
+  const fetchedUsers = await axios.get(`${API_LINK}/users`)
+  const fetchedPosts = await axios.get(`${API_LINK}/posts`)
+  const fetchedContacts = await axios.get(`${API_LINK}/contacts`)
+  const contacts = fetchedContacts.data
+  const users = fetchedUsers.data
+  const posts = fetchedPosts.data
 
   return {
     props: { 
@@ -100,5 +97,5 @@ export async function getServerSideProps(context) {
       contacts,
       ...await serverSideTranslations(context.locale, "common")
     }
-  };
+  }
 }

@@ -79,6 +79,8 @@ const Index = ({posts, listItems}) => {
 
   if (router.isFallback) return <div>Loading...</div>
 
+  console.log(posts)
+
   return (
     <>
       <Head>
@@ -86,6 +88,7 @@ const Index = ({posts, listItems}) => {
         <meta name="description" content={t("head.indexDescription")} />
         <meta name="keywords" content={t("head.indexKeywords")} />
       </Head>
+      <h1  style={{ textAlign: 'center' }}>Index page</h1>
       {/* <PostSeparateListIndex
         label={router.locale === "uk" ? "Головне" : "Main news"}
         items={showMore ? listItems.slice(0, 5) : listItems.slice(0, 10)}
@@ -95,7 +98,7 @@ const Index = ({posts, listItems}) => {
         toggleShowMore={() => setShowMore(!showMore)} 
       /> */}
 
-      {posts ? posts.map(i =>  <div key={i._id} style={{ border: '1px sold #000', marginBottom: 20 }}>
+      {/* {posts ? posts.map(i =>  <div key={i._id} style={{ border: '1px sold #000', marginBottom: 20 }}>
         <Item >
         <div style={{ border: '1px sold #000', padding: '20px 0' }}>
           <Typography paragraph className={styles.topBage}>
@@ -132,15 +135,12 @@ const Index = ({posts, listItems}) => {
           {i.imgUrl && <Image src={i.imgUrl} />}
           </div>
         </Item>
-      </div>) : "postList.noPosts"} 
-      <h1  style={{ textAlign: 'center' }}>Index page</h1>
+      </div>) : "postList.noPosts"}  */}
     </>
   );
 }
 
-export default Index
-
-export async function getServerSideProps({locale}) {
+Index.getInitialProps = async (context) => {
   const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
   // const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
   // const listItems = res.data.posts
@@ -150,7 +150,24 @@ export async function getServerSideProps({locale}) {
     props: {
       posts, 
       // listItems,
-      // ...await serverSideTranslations(locale, ['common']) 
+      // ...await serverSideTranslations(context.locale, ['common']) 
     } 
   }
 }
+
+export default Index
+
+// export async function getServerSideProps({locale}) {
+//   const fetchedPosts = await axios.get('https://kosht-api.herokuapp.com/api/posts')  
+//   // const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
+//   // const listItems = res.data.posts
+//   const posts = fetchedPosts.data.data
+
+//   return {
+//     props: {
+//       posts, 
+//       // listItems,
+//       // ...await serverSideTranslations(locale, ['common']) 
+//     } 
+//   }
+// }

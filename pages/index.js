@@ -89,6 +89,7 @@ const Index = ({posts, listItems}) => {
   return (
     <>
       <Head>
+        <title>{router.locale === "uk" ? titleUA : titleEN}</title>
         {/* <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title>
         <meta name="description" content={t("head.indexDescription")} />
         <meta name="keywords" content={t("head.indexKeywords")} /> */}
@@ -140,8 +141,9 @@ const Index = ({posts, listItems}) => {
           {i.imgUrl && <Image src={i.imgUrl} />}
           </div>
         </Item>
-      </div>)} 
-    </> */}
+      </div>)}  */}
+
+    </>
   );
 }
 

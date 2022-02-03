@@ -42,7 +42,7 @@ const MyApp = props => {
     <CacheProvider value={emotionCache}>
       <Head>
         {/* <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title> */}
-        <title>{router.locale === "uk" ? titleUA : titleEN}</title>
+        {/* <title>{router.locale === "uk" ? titleUA : titleEN}</title> */}
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />

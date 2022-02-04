@@ -1,4 +1,4 @@
-// import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useEffect, useState, useMemo } from "react"
 import { makeStyles } from "@mui/styles"
 import { Typography, Table, TableHead, TableBody, TableRow, TableCell, TextField, TableContainer, InputAdornment } from "@mui/material"
@@ -519,7 +519,7 @@ export default function CurrencyFull() {
 export async function getServerSideProps(context) {
   return {
     props: {
-      // ...await serverSideTranslations(context.locale, ["common"]) 
+      ...await serverSideTranslations(context.locale, ["common"]) 
     }
   }
 }

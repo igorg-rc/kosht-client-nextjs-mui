@@ -110,7 +110,7 @@ export const SpinnerLoadPage = ({ loadingStatus }) => {
   const router = useRouter()
   const styles = spinnerStyles();
   return (
-    <div className={styles.main}>
+    <div style={{ textAlign: 'center' }}>
       <Typography 
         component="h1" 
         className={styles.pageTitle}

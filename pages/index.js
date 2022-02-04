@@ -1,18 +1,18 @@
 import {useState} from 'react'
 import { makeStyles } from '@mui/styles'
 import axios from 'axios'
-// import Link from '../src/Link'
+import Link from '../src/Link'
 import { useRouter } from 'next/router'
-// import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-// import { PostSeparateListIndex } from '../components/PostList/PostSeparateListIndex'
-// import { SectionTitle } from '../components/UI/UIUnits'
-// import { Item } from '../components/UI/UIUnits'
-// import { Typography } from '@mui/material'
-// import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { PostSeparateListIndex } from '../components/PostList/PostSeparateListIndex'
+import { SectionTitle } from '../components/UI/UIUnits'
+import { Item } from '../components/UI/UIUnits'
+import { Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 import Head from "next/head"
-// import moment from 'moment'
-// import 'moment/locale/en-gb'
-// import 'moment/locale/uk'
+import moment from 'moment'
+import 'moment/locale/en-gb'
+import 'moment/locale/uk'
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -70,8 +70,8 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-const Index = ({posts}) => {
-  // const { t } = useTranslation("common")
+const Index = ({posts, listItems}) => {
+  const { t } = useTranslation("common")
   const router = useRouter()
   const styles = useStyles()
   const [showMore, setShowMore] = useState(true)
@@ -83,28 +83,25 @@ const Index = ({posts}) => {
 
   if (router.isFallback) return <div>Loading...</div>
 
-  console.log(posts)
-  // console.log(listItems)
-
   return (
     <>
       <Head>
         <title>{router.locale === "uk" ? titleUA : titleEN}</title>
-        {/* <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title>
+        <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title>
         <meta name="description" content={t("head.indexDescription")} />
-        <meta name="keywords" content={t("head.indexKeywords")} /> */}
+        <meta name="keywords" content={t("head.indexKeywords")} />
       </Head>
-      <h1  style={{ textAlign: 'center' }}>{!localeUA ? "Index page" : "Головна"}</h1>
-      {/* <PostSeparateListIndex
+      {/* <h1  style={{ textAlign: 'center' }}>{!localeUA ? "Index page" : "Головна"}</h1> */}
+      <PostSeparateListIndex
         label={router.locale === "uk" ? "Головне" : "Main news"}
         items={showMore ? listItems?.slice(0, 5) : listItems?.slice(0, listItems.length)}
         showMore={showMore}
         expanded={expanded}
         toggleExpanded={() => setExpanded(!expanded)}
         toggleShowMore={() => setShowMore(!showMore)} 
-      /> */}
+      />
 
-      {/* {posts?.map(i =>  <div key={i._id} style={{ border: '1px sold #000', marginBottom: 20 }}>
+      {posts?.map(i =>  <div key={i._id} style={{ border: '1px sold #000', marginBottom: 20 }}>
         <Item >
         <div style={{ border: '1px sold #000', padding: '20px 0' }}>
           <Typography paragraph className={styles.topBage}>
@@ -141,7 +138,7 @@ const Index = ({posts}) => {
           {i.imgUrl && <Image src={i.imgUrl} />}
           </div>
         </Item>
-      </div>)}  */}
+      </div>)} 
 
     </>
   );
@@ -165,22 +162,21 @@ const Index = ({posts}) => {
 export default Index
 
 export async function getServerSideProps({locale}) {
-  const res = await axios.get('https://kosht-api.herokuapp.com/api/posts')
-  const posts = res.data
+  // const res = await axios.get('https://kosht-api.herokuapp.com/api/posts')
+  // const posts = res.data.data
     
-  // const listItems = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
-  //   .then(res => res.data.posts) 
-  //   .catch(err => console.log(err))
+  const resItems = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
+  const listItems = resItems.data.posts
+    
 
-  // const res = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
-  // const listItems = res.data.posts
-  // const posts = fetchedPosts.data.data
+  const postsList = await axios.get(`https://kosht-api.herokuapp.com/api/posts/tags/privatbank`)
+  const posts = postsList.data
 
   return {
     props: {
       posts, 
-      // listItems,
-      // ...await serverSideTranslations(locale, ['common']) /
+      listItems,
+      ...await serverSideTranslations(locale, ['common']) 
     } 
   }
 }

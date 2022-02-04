@@ -19,7 +19,7 @@ const MyApp = props => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps, layoutProps } = props
   const router = useRouter()
   const [loading, setLoading] = useState(false);
-  // const { t } = useTranslation()
+  const { t } = useTranslation()
   const titleUA = "Кошт | Говоримо про особисті фінанси"
   const titleEN = "Kosht | We talk about personal finances"
 
@@ -41,8 +41,8 @@ const MyApp = props => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title> */}
-        {/* <title>{router.locale === "uk" ? titleUA : titleEN}</title>
+        <title>{t("head.mainTitle")} | {t("head.indexTitle")}</title>
+        <title>{router.locale === "uk" ? titleUA : titleEN}</title>
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />

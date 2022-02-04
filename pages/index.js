@@ -3,12 +3,12 @@ import { makeStyles } from '@mui/styles'
 import axios from 'axios'
 import Link from '../src/Link'
 import { useRouter } from 'next/router'
-// import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { PostSeparateListIndex } from '../components/PostList/PostSeparateListIndex'
 import { SectionTitle } from '../components/UI/UIUnits'
 import { Item } from '../components/UI/UIUnits'
 import { Typography } from '@mui/material'
-// import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import Head from "next/head"
 import moment from 'moment'
 import 'moment/locale/en-gb'
@@ -162,21 +162,21 @@ const Index = ({posts, listItems}) => {
 export default Index
 
 export async function getServerSideProps({locale}) {
-  // const res = await axios.get('https://kosht-api.herokuapp.com/api/posts')
-  // const posts = res.data.data
+  const res = await axios.get('https://kosht-api.herokuapp.com/api/posts')
+  const posts = res.data.data
     
   // const resItems = await axios.get('https://kosht-api.herokuapp.com/api/lists/slug/main-news')
   // const listItems = resItems.data.posts
     
 
-  const postsList = await axios.get(`https://kosht-api.herokuapp.com/api/posts/tags/monobank`)
-  const posts = postsList.data
+  // const postsList = await axios.get(`https://kosht-api.herokuapp.com/api/posts/tags/monobank`)
+  // const posts = postsList.data
 
   return {
     props: {
       posts, 
       // listItems,
-      // ...await serverSideTranslations(locale, ['common']) 
+      ...await serverSideTranslations(locale, ['common']) 
     } 
   }
 }
